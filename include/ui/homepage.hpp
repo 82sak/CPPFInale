@@ -4,4 +4,4 @@
 using namespace std;
 
 void homePage();
-void typeWrite(string text);
+void loadingScreen();
