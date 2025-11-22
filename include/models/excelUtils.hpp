@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "user.hpp"
+#include "models/staffAccount.hpp"
 
 using namespace std;
 

@@ -1,10 +1,6 @@
 #include "models/staff.hpp"
 #include <iostream>
-
-using namespace std;
-
 #include "models/admin.hpp"
-#include <iostream>
 
 using namespace std;
 

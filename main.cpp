@@ -4,15 +4,14 @@
 #include "models/admin.hpp"
 #include "models/menu.hpp"
 #include "models/staff.hpp"
-#include "models/user.hpp"
+#include "models/staffAccount.hpp"
 #include "models/excelUtils.hpp"
+#include "models/staffManagement.hpp"
  
 using namespace std;
+
 int main(){
     system("cls");
-
-    string filename = "../../data/userInfo.xlsx";
-    vector<User> users = readExcelToVector(filename);
 
     loadingScreen();
     
@@ -32,35 +31,49 @@ int main(){
                 // addmin function
                 while(true){
                     system("cls");
+
                     int option;
                     displayAdminPage();
 
                     cout << "Choose an option : ";
                     cin >> option;
+
                     if(option == 0){
                         break;
                     }
+
                     switch (option){
                         case 1:{
+                            // Menu Management
                             while(true){
                                 system("cls");
+
                                 int option;
                                 displayMenuManagementPage();
                                 cout << "Choose an option : ";
                                 cin >> option;
+
                                 if(option == 0){
                                     break;
                                 }
-                                while(true){
-                                    switch (option)
-                                    {
+                                switch(option){
                                     case 1:{
-                                        
-                                    }
-                                        /* code */
+                                        // Add new product
                                         break;
-                                    
-                                    default:
+                                    }
+                                    case 2:{
+                                        // update product
+                                        break;
+                                    }
+                                    case 3:{
+                                        // delete product
+                                        break;
+                                    }
+                                    case 4:{
+                                        // show all product
+                                        break;
+                                    }
+                                    default:{
                                         break;
                                     }
                                 }
@@ -68,6 +81,7 @@ int main(){
                             break;
                         }
                         case 2: {
+                            // Staff Management
                             while(true){
                                 system("cls");
                                 int option;
@@ -76,6 +90,32 @@ int main(){
                                 cin >> option;
                                 if(option == 0){
                                     break;
+                                }
+                                switch (option){
+                                    case 1: {
+                                        // addNewStaffAccount();
+                                        addNewStaffAccount();
+                                        break;
+                                    }
+                                    case 2:{
+                                        // update staff
+                                        updateStaffAccount();
+                                        break;
+                                    }
+                                    case 3:{
+                                        // delete staff
+                                        deleteStaffAccount();
+                                        break;
+                                    }
+                                    case 4:{
+                                        // show all staff
+                                        showAllStaff();
+                                        break;
+                                    }
+                                    
+                                
+                                    default:
+                                        break;
                                 }
                             }
                             break;
@@ -119,15 +159,7 @@ int main(){
                         break;
                     }
                 }
-                // string userName;
-                // string userPass;
-                // cout << "add user : ";
-                // cin >> userName;
-                // cout << "add pass : ";
-                // cin >> userPass;
-
-                // users.emplace_back(userName, userPass);
-                // writeExcel(filename, users);
+                
 
                 break;
             }

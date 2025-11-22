@@ -27,7 +27,7 @@ void displayMenuManagementPage(){
     cout << BLUE << BOLD << "\t\t\t1. Add new Products\n" << RESET;
     cout << BLUE << BOLD << "\t\t\t2. Update Product\n" << RESET;
     cout << BLUE << BOLD << "\t\t\t3. Delete Products\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t3. Show all Products\n" << RESET;
+    cout << BLUE << BOLD << "\t\t\t4. Show all Products\n" << RESET;
     cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
 }
 void displayStaffManagementPage(){
@@ -37,6 +37,6 @@ void displayStaffManagementPage(){
     cout << BLUE << BOLD << "\t\t\t1. Add new Staff Accounts\n" << RESET;
     cout << BLUE << BOLD << "\t\t\t2. Update Staff Information\n" << RESET;
     cout << BLUE << BOLD << "\t\t\t3. Delete Staff Accounts\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t3. Show all Staff Information\n" << RESET;
+    cout << BLUE << BOLD << "\t\t\t4. Show all Staff Information\n" << RESET;
     cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
 }
