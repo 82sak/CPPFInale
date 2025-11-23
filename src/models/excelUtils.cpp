@@ -2,7 +2,7 @@
 #include "models/excelUtils.hpp"
 #include <iostream>
 
-void writeExcel(const string &filename, vector<User> &users){
+void writeExcelToStaffInfo(const string &filename, vector<User> &users){
     xlnt::workbook wb;
     auto ws = wb.active_sheet();
     ws.title("sheet1");
@@ -25,7 +25,7 @@ void writeExcel(const string &filename, vector<User> &users){
     wb.save(filename);
     cout << "File saved! \n";
 }
-vector<User> readExcelToVector(const string &filename){
+vector<User> readExcelFromStaffInfoToVector(const string &filename){
     vector<User> users;
     xlnt::workbook wb;
 
@@ -61,3 +61,48 @@ void readExcel(const string &filename){
         cout << endl;
     }
 }
+
+void writeExcelToMenuInfo(const string &filename, vector<Product> &products){
+    xlnt::workbook wb;
+    auto ws = wb.active_sheet();
+    ws.title("sheet1");
+
+    ws.cell("A1").value("productName");
+    ws.cell("B1").value("productPrice");
+    ws.cell("C1").value("productAmount");
+
+
+    int row = 2;
+    for(auto &product : products){
+        ws.cell("A" + to_string(row)).value(product.getItemName());
+        ws.cell("B" + to_string(row)).value(product.getItemPrice());
+        ws.cell("C" + to_string(row)).value(product.getItemAmount());
+
+        row++;
+    }
+    wb.save(filename);
+    cout << "File saved! \n";
+};
+vector<Product> readExcelFromMenuInfoToVector(const string &filename){
+    vector<Product> products;
+    xlnt::workbook wb;
+
+    try{
+        wb.load(filename);
+    } catch (...) {
+        cout << "file couldn't open! ";
+        return products;
+    }
+
+    auto ws = wb.active_sheet();
+    for(auto row : ws.rows(false)){
+        if(row[0].to_string() == "productName") continue;
+
+        string itemName = row[0].to_string();
+        float itemPrice = stof(row[1].to_string());
+        int  itemAmount = stoi(row[2].to_string());
+
+        products.emplace_back(itemName, itemPrice, itemAmount);
+    }
+    return products;
+};

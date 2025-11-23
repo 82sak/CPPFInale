@@ -4,9 +4,11 @@
 #include "models/admin.hpp"
 #include "models/menu.hpp"
 #include "models/staff.hpp"
-#include "models/staffAccount.hpp"
 #include "models/excelUtils.hpp"
+#include "models/staffAccount.hpp"
 #include "models/staffManagement.hpp"
+#include "models/menuInfo.hpp"
+#include "models/menuManagement.hpp"
  
 using namespace std;
 
@@ -59,18 +61,22 @@ int main(){
                                 switch(option){
                                     case 1:{
                                         // Add new product
+                                        addNewProduct();
                                         break;
                                     }
                                     case 2:{
                                         // update product
+                                        updateProduct();
                                         break;
                                     }
                                     case 3:{
                                         // delete product
+                                        deleteProduct();
                                         break;
                                     }
                                     case 4:{
                                         // show all product
+                                        showAllProduct();
                                         break;
                                     }
                                     default:{

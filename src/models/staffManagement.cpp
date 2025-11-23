@@ -10,7 +10,7 @@ using namespace std;
 
 void addNewStaffAccount(){
     string filename = "../../data/staffInfo.xlsx";
-    vector<User> users = readExcelToVector(filename);
+    vector<User> users = readExcelFromStaffInfoToVector(filename);
 
     string userName;
     string userPass;
@@ -31,12 +31,12 @@ void addNewStaffAccount(){
     cin >> age;
 
     users.emplace_back(userName, userPass, fullName, gender, age);
-    writeExcel(filename, users);
+    writeExcelToStaffInfo(filename, users);
 }
 
 void updateStaffAccount(){
     string filename = "../../data/staffInfo.xlsx";
-    vector<User> users = readExcelToVector(filename);
+    vector<User> users = readExcelFromStaffInfoToVector(filename);
 
     string updateName;
     string newUserFullName;
@@ -45,7 +45,7 @@ void updateStaffAccount(){
 
     cin.ignore();
     cout << "Enter Staff's account Name to Update : ";
-    cin >> updateName;
+    getline(cin, updateName);
 
     bool found = false;
     for(auto &user : users){
@@ -57,7 +57,6 @@ void updateStaffAccount(){
             cout << "Age: " << user.getUserAge() << "\n";
             cout << "\nPress Enter to continue...";
             cin.ignore();
-            cin.get();
 
             cout << "Enter Staff Full Name : ";
             getline(cin, newUserFullName);
@@ -70,7 +69,7 @@ void updateStaffAccount(){
             user.setUserGender(newUserGender);
             user.setUserAge(newUserAge);
 
-            writeExcel(filename, users);
+            writeExcelToStaffInfo(filename, users);
             break;  
         }
     }
@@ -78,14 +77,13 @@ void updateStaffAccount(){
             cout << "User not found!\n";
             cout << "\nPress Enter to continue...";
             cin.ignore();
-            cin.get();
         }
     
 }
 
 void deleteStaffAccount(){
     string filename = "../../data/staffInfo.xlsx";
-    vector<User> users = readExcelToVector(filename);
+    vector<User> users = readExcelFromStaffInfoToVector(filename);
 
     string deleteStaff;
 
@@ -99,7 +97,6 @@ void deleteStaffAccount(){
             users.erase(it);
             cout << "Staff's account deleted successfully!\n";
             cin.ignore();
-            cin.get();
             break;
         }
     }
@@ -107,9 +104,8 @@ void deleteStaffAccount(){
         cout << "Staff's account not found!\n";
         cout << "Press Enter to continue...";
         cin.ignore();
-        cin.get();
     }
-    writeExcel(filename, users);
+    writeExcelToStaffInfo(filename, users);
 }
 
 // void showAllStaff(const vector<User> &users){
@@ -124,7 +120,7 @@ void deleteStaffAccount(){
 
 void showAllStaff(){
     string filename = "../../data/staffInfo.xlsx";
-    vector<User> users = readExcelToVector(filename);
+    vector<User> users = readExcelFromStaffInfoToVector(filename);
 
     system("cls");
     cout << "========== ALL STAFF ACCOUNTS ==========\n\n";

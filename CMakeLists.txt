@@ -22,7 +22,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(tabulate)
 
 # Add executable
-add_executable(ServeEngine main.cpp src/models/admin.cpp src/models/menu.cpp src/models/staff.cpp src/models/staffAccount.cpp src/models/staffManagement.cpp src/models/excelUtils.cpp src/ui/homepage.cpp )
+add_executable(ServeEngine main.cpp src/models/admin.cpp src/models/menu.cpp src/models/staff.cpp src/models/staffAccount.cpp src/models/staffManagement.cpp src/models/excelUtils.cpp src/models/menuInfo.cpp src/models/menuManagement.cpp src/ui/homepage.cpp )
 
 # Include directories (for header files)
 include_directories(include)
