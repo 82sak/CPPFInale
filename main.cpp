@@ -149,6 +149,20 @@ int main(){
                     if(option == 0){
                         break;
                     }
+                    switch(option){
+                        case 1:{
+                            // show menu
+                            showMenu();
+                            break;
+                        }
+                        case 2:{
+                            // show receipt
+                            break;
+                        }
+                        default:{
+                            cout << "Invalid option";
+                        }
+                    }
                 }
                 break;
             }

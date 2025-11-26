@@ -5,6 +5,10 @@
 #include "models/orderInfo.hpp"
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -152,6 +156,15 @@ void displayDrink(){
     }
 }
 
+string getCurrentTimestamp() {
+    auto now = chrono::system_clock::now();
+    time_t now_time = chrono::system_clock::to_time_t(now);
+    
+    stringstream ss;
+    ss << put_time(localtime(&now_time), "%Y-%m-%d %H:%M:%S");
+    return ss.str();
+}
+
 void displayCart(){
     system("cls");
     cout << "========== Cart ==========\n\n";
@@ -216,6 +229,7 @@ void displayCart(){
 
                 string productInfo = "../../data/productInfo.xlsx";
                 vector<Product> products  = readExcelFromMenuInfoToVector(productInfo);
+                string timestamp = getCurrentTimestamp();
 
                 for(int i = 0 ; i < orderName.size(); i++){
                     for( auto &product : products){
@@ -225,7 +239,7 @@ void displayCart(){
                             break;
                         }
                     }
-                    orders.emplace_back(orderName[i], orderPrice[i], orderAmount[i], orderCategory[i]);
+                    orders.emplace_back(orderName[i], orderPrice[i], orderAmount[i], orderCategory[i], timestamp);
                 }
 
                 writeExcelToOrderInfo(filename, orders);
@@ -234,7 +248,9 @@ void displayCart(){
                 orderPrice.clear();
                 orderAmount.clear();
                 orderCategory.clear();
-                cout << "\nOrder placed successfully!";
+                cout << "\n✓ Order placed successfully!\n";
+                cout << "✓ Order time: " << timestamp << "\n";  // ← Show timestamp
+                cout << "Thank you for your order!\n";
                 cond = false;
                 break;
             }

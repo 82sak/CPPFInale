@@ -119,6 +119,7 @@ void writeExcelToOrderInfo(const string &filename, vector<Order> &orders){
     ws.cell("B1").value("productOrderPrice");
     ws.cell("C1").value("productOrderAmount");
     ws.cell("D1").value("productOrderCategory");
+    ws.cell("E1").value("productOrderTimestamp");
 
 
     int row = 2;
@@ -127,6 +128,7 @@ void writeExcelToOrderInfo(const string &filename, vector<Order> &orders){
         ws.cell("B" + to_string(row)).value(order.getItemOrderPrice());
         ws.cell("C" + to_string(row)).value(order.getItemOrderAmount());
         ws.cell("D" + to_string(row)).value(order.getItemOrderCategory());
+        ws.cell("E" + to_string(row)).value(order.getItemOrderTimestamp());
 
         row++;
     }
@@ -152,8 +154,10 @@ vector<Order> orders;
         float itemOrderPrice = stof(row[1].to_string());
         int  itemOrderAmount = stoi(row[2].to_string());
         string itemOrderCategory = row[3].to_string();
+        string itemOrderTimestamp = row[4].to_string();
 
-        orders.emplace_back(itemOrderName, itemOrderPrice, itemOrderAmount, itemOrderCategory);
+
+        orders.emplace_back(itemOrderName, itemOrderPrice, itemOrderAmount, itemOrderCategory, itemOrderTimestamp);
     }
     return orders;
 };
