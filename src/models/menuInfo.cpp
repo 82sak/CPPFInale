@@ -1,6 +1,6 @@
 #include "models/menuInfo.hpp"
 
-Product::Product(string itemName, float itemPrice, int itemAmount) : itemName(itemName), itemPrice(itemPrice), itemAmount(itemAmount){}
+Product::Product(string itemName, float itemPrice, int itemAmount, string itemCategory) : itemName(itemName), itemPrice(itemPrice), itemAmount(itemAmount), itemCategory(itemCategory){}
     string Product::getItemName() const{
         return itemName;
     };
@@ -9,6 +9,9 @@ Product::Product(string itemName, float itemPrice, int itemAmount) : itemName(it
     };
     int Product::getItemAmount() const{
         return itemAmount;
+    };
+    string Product::getItemCategory() const{
+        return itemCategory;
     };
 
     void Product::setItemName(string itemName){
@@ -19,4 +22,7 @@ Product::Product(string itemName, float itemPrice, int itemAmount) : itemName(it
     };
     void Product::setItemAmount(int itemAmount){
         this->itemAmount = itemAmount;
+    };
+    void Product::setItemCategory(string itemCategory){
+        this->itemCategory = itemCategory;
     };

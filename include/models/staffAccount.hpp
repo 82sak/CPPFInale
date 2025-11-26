@@ -24,5 +24,4 @@ public :
     void setUserFullName(string fullName);
     void setUserGender(string gender);
     void setUserAge(int age);
-
 };

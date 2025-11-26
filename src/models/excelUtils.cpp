@@ -23,7 +23,7 @@ void writeExcelToStaffInfo(const string &filename, vector<User> &users){
         row++;
     }
     wb.save(filename);
-    cout << "File saved! \n";
+    // cout << "File saved! \n";
 }
 vector<User> readExcelFromStaffInfoToVector(const string &filename){
     vector<User> users;
@@ -70,6 +70,7 @@ void writeExcelToMenuInfo(const string &filename, vector<Product> &products){
     ws.cell("A1").value("productName");
     ws.cell("B1").value("productPrice");
     ws.cell("C1").value("productAmount");
+    ws.cell("D1").value("productCategory");
 
 
     int row = 2;
@@ -77,11 +78,12 @@ void writeExcelToMenuInfo(const string &filename, vector<Product> &products){
         ws.cell("A" + to_string(row)).value(product.getItemName());
         ws.cell("B" + to_string(row)).value(product.getItemPrice());
         ws.cell("C" + to_string(row)).value(product.getItemAmount());
+        ws.cell("D" + to_string(row)).value(product.getItemCategory());
 
         row++;
     }
     wb.save(filename);
-    cout << "File saved! \n";
+    // cout << "File saved! \n";
 };
 vector<Product> readExcelFromMenuInfoToVector(const string &filename){
     vector<Product> products;
@@ -101,8 +103,57 @@ vector<Product> readExcelFromMenuInfoToVector(const string &filename){
         string itemName = row[0].to_string();
         float itemPrice = stof(row[1].to_string());
         int  itemAmount = stoi(row[2].to_string());
+        string itemCategory = row[3].to_string();
 
-        products.emplace_back(itemName, itemPrice, itemAmount);
+        products.emplace_back(itemName, itemPrice, itemAmount, itemCategory);
     }
     return products;
+};
+
+void writeExcelToOrderInfo(const string &filename, vector<Order> &orders){
+    xlnt::workbook wb;
+    auto ws = wb.active_sheet();
+    ws.title("sheet1");
+
+    ws.cell("A1").value("productOrderName");
+    ws.cell("B1").value("productOrderPrice");
+    ws.cell("C1").value("productOrderAmount");
+    ws.cell("D1").value("productOrderCategory");
+
+
+    int row = 2;
+    for(auto &order : orders){
+        ws.cell("A" + to_string(row)).value(order.getItemOrderName());
+        ws.cell("B" + to_string(row)).value(order.getItemOrderPrice());
+        ws.cell("C" + to_string(row)).value(order.getItemOrderAmount());
+        ws.cell("D" + to_string(row)).value(order.getItemOrderCategory());
+
+        row++;
+    }
+    wb.save(filename);
+    // cout << "File saved! \n";
+};
+vector<Order> readExcelFromOrderInfoToVector(const string &filename){
+vector<Order> orders;
+    xlnt::workbook wb;
+
+    try{
+        wb.load(filename);
+    } catch (...) {
+        cout << "file couldn't open! ";
+        return orders;
+    }
+
+    auto ws = wb.active_sheet();
+    for(auto row : ws.rows(false)){
+        if(row[0].to_string() == "productOrderName") continue;
+
+        string itemOrderName = row[0].to_string();
+        float itemOrderPrice = stof(row[1].to_string());
+        int  itemOrderAmount = stoi(row[2].to_string());
+        string itemOrderCategory = row[3].to_string();
+
+        orders.emplace_back(itemOrderName, itemOrderPrice, itemOrderAmount, itemOrderCategory);
+    }
+    return orders;
 };

@@ -8,16 +8,17 @@ private :
     string itemName;
     float itemPrice;
     int itemAmount;
-
+    string itemCategory;
 
 public :
-    Product(string itemName, float itemPrice, int itemAmount);
+    Product(string itemName, float itemPrice, int itemAmount, string itemCategory);
     string getItemName() const;
     float getItemPrice() const;
     int getItemAmount() const;
+    string getItemCategory() const;
 
     void setItemName(string itemName);
     void setItemPrice(float itemPrice);
     void setItemAmount(int itemAmount);
-
+    void setItemCategory(string itemCategory);
 };

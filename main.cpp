@@ -164,6 +164,44 @@ int main(){
                     if(option == 0){
                         break;
                     }
+                    switch (option){
+                        case 1:{
+                            // display category
+                            while(true){
+                                system("cls");
+                                int option;
+
+                                displayCategory();
+                                cout << "Choose an Option : ";
+                                cin >> option;
+                                if(option == 0){
+                                    break;
+                                }
+                                switch (option){
+                                    case 1:{
+                                        // Food
+                                        displayFood();
+                                        break;
+                                    }
+                                    case 2:{
+                                        // drink
+                                        displayDrink();
+                                    }
+                                    
+                                    default:
+                                        break;
+                                    }
+                            }
+                            break;
+                        }
+                        case 2:{
+                            // cart
+                            displayCart();
+                            break;
+                        }
+                        default:
+                            break;
+                    }
                 }
                 
 

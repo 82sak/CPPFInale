@@ -13,6 +13,7 @@ void addNewProduct(){
     string itemName;
     float  itemPrice;
     int   itemAmount;
+    string itemCategory;
 
     cin.ignore();
     cout << "Enter Product Name : ";
@@ -21,8 +22,10 @@ void addNewProduct(){
     cin >> itemPrice;
     cout << "Enter Product Amount : ";
     cin >> itemAmount;
+    cout << "Enter Product Category : ";
+    cin >> itemCategory;
 
-    products.emplace_back(itemName, itemPrice, itemAmount);
+    products.emplace_back(itemName, itemPrice, itemAmount, itemCategory);
     writeExcelToMenuInfo(filename, products);
 }
 
@@ -34,6 +37,7 @@ void updateProduct(){
     string newitemName;
     float  newItemPrice;
     int   newItemAmount;
+    string newItemCategory;
 
     cin.ignore();
     cout << "Enter Product Name to Update : ";
@@ -47,6 +51,7 @@ void updateProduct(){
             cout << "Product Name : " << product.getItemName() << endl;
             cout << "Product Price : " << product.getItemPrice() << endl;
             cout << "Product Amount : " << product.getItemAmount() << endl;
+            cout << "Product Category : " << product.getItemCategory() << endl;
             cout << "Press Enter to continue...";
             cin.ignore();
 
@@ -56,10 +61,13 @@ void updateProduct(){
             cin >> newItemPrice;
             cout << "Enter Product Amount : ";
             cin >> newItemAmount;
+            cout << "Enter Product Category : ";
+            cin >> newItemCategory;
 
             product.setItemName(newitemName);
             product.setItemPrice(newItemPrice);
             product.setItemAmount(newItemAmount);
+            product.setItemCategory(newItemCategory);
 
             writeExcelToMenuInfo(filename, products);
             break;
@@ -72,7 +80,7 @@ void updateProduct(){
         cin.get();
     }
     
-};
+}
 void deleteProduct(){
     string filename = "../../data/productInfo.xlsx";
     vector<Product> products  = readExcelFromMenuInfoToVector(filename);
@@ -100,7 +108,7 @@ void deleteProduct(){
         cin.get();
     }
     writeExcelToMenuInfo(filename, products);
-};
+}
 void showAllProduct(){
     string filename = "../../data/productInfo.xlsx";
     vector<Product> products  = readExcelFromMenuInfoToVector(filename);
@@ -116,6 +124,7 @@ void showAllProduct(){
             cout << "[" << count << "]" <<"    Product Name : " << product.getItemName() << endl;
             cout << "    Product Price : " << product.getItemPrice() << endl;
             cout << "    Product Amount : " << product.getItemAmount() << endl;
+            cout << "    Product Category : " << product.getItemCategory() << endl;
             count++;
         }
         cout << "Total Product : " << products.size() << endl;
@@ -123,4 +132,4 @@ void showAllProduct(){
     cout << "\nPress Enter to continue...";
     cin.ignore();
     cin.get();
-};
+}
