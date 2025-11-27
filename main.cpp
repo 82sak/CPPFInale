@@ -30,137 +30,171 @@ int main(){
         }
         switch(option){
             case 1:{
+                // adminAuth
                 // addmin function
-                while(true){
-                    system("cls");
+                if(adminAuth()){
+                    while(true){
+                        system("cls");
 
-                    int option;
-                    displayAdminPage();
+                        int option;
+                        displayAdminPage();
 
-                    cout << "Choose an option : ";
-                    cin >> option;
+                        cout << "Choose an option : ";
+                        cin >> option;
 
-                    if(option == 0){
-                        break;
-                    }
-
-                    switch (option){
-                        case 1:{
-                            // Menu Management
-                            while(true){
-                                system("cls");
-
-                                int option;
-                                displayMenuManagementPage();
-                                cout << "Choose an option : ";
-                                cin >> option;
-
-                                if(option == 0){
-                                    break;
-                                }
-                                switch(option){
-                                    case 1:{
-                                        // Add new product
-                                        addNewProduct();
-                                        break;
-                                    }
-                                    case 2:{
-                                        // update product
-                                        updateProduct();
-                                        break;
-                                    }
-                                    case 3:{
-                                        // delete product
-                                        deleteProduct();
-                                        break;
-                                    }
-                                    case 4:{
-                                        // show all product
-                                        showAllProduct();
-                                        break;
-                                    }
-                                    default:{
-                                        break;
-                                    }
-                                }
-                            }
+                        if(option == 0){
                             break;
                         }
-                        case 2: {
-                            // Staff Management
-                            while(true){
-                                system("cls");
-                                int option;
-                                displayStaffManagementPage();
-                                cout << "Choose an option : ";
-                                cin >> option;
-                                if(option == 0){
-                                    break;
+
+                        switch (option){
+                            case 1:{
+                                // Menu Management
+                                while(true){
+                                    system("cls");
+
+                                    int option;
+                                    displayMenuManagementPage();
+                                    cout << "Choose an option : ";
+                                    cin >> option;
+
+                                    if(option == 0){
+                                        break;
+                                    }
+                                    switch(option){
+                                        case 1:{
+                                            // Add new product
+                                            addNewProduct();
+                                            break;
+                                        }
+                                        case 2:{
+                                            // update product
+                                            updateProduct();
+                                            break;
+                                        }
+                                        case 3:{
+                                            // delete product
+                                            deleteProduct();
+                                            break;
+                                        }
+                                        case 4:{
+                                            // show all product
+                                            showAllProduct();
+                                            break;
+                                        }
+                                        default:{
+                                            break;
+                                        }
+                                    }
                                 }
-                                switch (option){
-                                    case 1: {
-                                        // addNewStaffAccount();
-                                        addNewStaffAccount();
+                                break;
+                            }
+                            case 2: {
+                                // Staff Management
+                                while(true){
+                                    system("cls");
+                                    int option;
+                                    displayStaffManagementPage();
+                                    cout << "Choose an option : ";
+                                    cin >> option;
+                                    if(option == 0){
+                                        break;
+                                    }
+                                    switch (option){
+                                        case 1: {
+                                            // addNewStaffAccount();
+                                            addNewStaffAccount();
+                                            break;
+                                        }
+                                        case 2:{
+                                            // update staff
+                                            updateStaffAccount();
+                                            break;
+                                        }
+                                        case 3:{
+                                            // delete staff
+                                            deleteStaffAccount();
+                                            break;
+                                        }
+                                        case 4:{
+                                            // show all staff
+                                            showAllStaff();
+                                            break;
+                                        }
+                                        
+                                    
+                                        default:
+                                            break;
+                                    }
+                                }
+                                break;
+                            }
+                            case 3:{
+                                //  Sales summary
+                                while(true){
+                                    system("cls");
+                                    int option;
+                                    displaySalesSummary();
+                                    cout << "Choose an option : ";
+                                    cin >> option;
+                                    if(option == 0){
+                                        break;
+                                    }
+                                    switch (option)
+                                    {
+                                    case 1:{
+                                        // 1d
+                                        showSummaryOneDay();
                                         break;
                                     }
                                     case 2:{
-                                        // update staff
-                                        updateStaffAccount();
+                                        // 1week
                                         break;
                                     }
                                     case 3:{
-                                        // delete staff
-                                        deleteStaffAccount();
+                                        // 1month
                                         break;
                                     }
-                                    case 4:{
-                                        // show all staff
-                                        showAllStaff();
-                                        break;
-                                    }
-                                    
-                                
                                     default:
                                         break;
+                                    }
                                 }
+                                break;
                             }
-                            break;
+                            default:
+                                break;
                         }
-                        case 3:{
-                            //  Sales summary
-                            break;
-                        }
-                        
-                        default:
-                            break;
                     }
                 }
                 break;
             }
             case 2:{
+                // Auth
                 // staff function
-                while(true){
-                    system("cls");
-                    int option;
-                    
-                    displayStaffPage();
-                    cout << "Choose an option : ";
-                    cin >> option;
-                    if(option == 0){
-                        break;
-                    }
-                    switch(option){
-                        case 1:{
-                            // show menu
-                            showMenu();
+                if(staffAuth()){
+                    while(true){
+                        system("cls");
+                        int option;
+                        
+                        displayStaffPage();
+                        cout << "Choose an option : ";
+                        cin >> option;
+                        if(option == 0){
                             break;
                         }
-                        case 2:{
-                            // show receipt
-                            break;
-                        }
-                        default:{
-                            cout << "Invalid option";
+                        switch(option){
+                            case 1:{
+                                // show menu
+                                showMenu();
+                                break;
+                            }
+                            case 2:{
+                                // show receipt
+                                showReceipt();
+                                break;
+                            }
+                            default:{
+                                cout << "Invalid option";
+                            }
                         }
                     }
                 }

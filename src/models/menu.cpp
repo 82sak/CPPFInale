@@ -161,7 +161,7 @@ string getCurrentTimestamp() {
     time_t now_time = chrono::system_clock::to_time_t(now);
     
     stringstream ss;
-    ss << put_time(localtime(&now_time), "%Y-%m-%d %H:%M:%S");
+    ss << put_time(localtime(&now_time), "%Y-%m-%d %H-%M-%S");
     return ss.str();
 }
 

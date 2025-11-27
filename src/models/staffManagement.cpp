@@ -144,3 +144,55 @@ void showAllStaff(){
     cin.ignore();
     cin.get();
 }
+
+bool staffAuth() {
+    string filename = "../../data/staffInfo.xlsx";
+    vector<User> users = readExcelFromStaffInfoToVector(filename);
+    
+    int attempts = 3;
+    
+    while(attempts > 0) {
+        system("cls");
+        cout << "========== STAFF LOGIN ==========\n";
+        cout << "Attempts remaining: " << attempts << "\n\n";
+        
+        string userName;
+        string userPass;
+        
+        cin.ignore();
+        cout << "Enter Username: ";
+        getline(cin, userName);
+        cout << "Enter Password: ";
+        getline(cin, userPass);
+        
+        // Check if credentials match any staff
+        bool found = false;
+        for(const auto &user : users) {
+            if(user.getUserName() == userName && user.getUserPass() == userPass) {
+                found = true;
+                cout << "\n Login successful!\n";
+                cout << "Welcome, " << user.getUserFullName() << "!\n";
+                cout << "Press Enter to continue...";
+                cin.get();
+                return true;  // Login successful
+            }
+        }
+        
+        // If not found
+        if(!found) {
+            attempts--;
+            if(attempts > 0) {
+                cout << "\n Invalid username or password!\n";
+                cout << "Attempts remaining: " << attempts << "\n";
+                cout << "Press Enter to try again...";
+                cin.get();
+            } else {
+                cout << "\n✗ Login failed! No attempts remaining.\n";
+                cout << "Press Enter to return...";
+                cin.get();
+            }
+        }
+    }
+    
+    return false;  // Login failed after 3 attempts
+}

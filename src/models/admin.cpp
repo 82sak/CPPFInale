@@ -40,3 +40,12 @@ void displayStaffManagementPage(){
     cout << BLUE << BOLD << "\t\t\t4. Show all Staff Information\n" << RESET;
     cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
 }
+void displaySalesSummary(){
+    cout << GREEN << BOLD << "\t\t\t=================================\n";
+    cout << GREEN << BOLD << "\t\t\t|            SALES SUMMARY       |\n";
+    cout << GREEN << BOLD << "\t\t\t=================================\n";
+    cout << BLUE << BOLD << "\t\t\t1. 1 Day\n" << RESET;
+    cout << BLUE << BOLD << "\t\t\t2. 1 Week\n" << RESET;
+    cout << BLUE  << BOLD << "\t\t\t3. 1 Month\n" << RESET;
+    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+}

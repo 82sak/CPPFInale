@@ -50,3 +50,66 @@ void showMenu(){
     cin.ignore();
     cin.get();
 }
+
+void showReceipt() {
+    string filename = "../../data/orderInfo.xlsx";
+    vector<Order> orders = readExcelFromOrderInfoToVector(filename);
+    
+    system("cls");
+    cout << "========== ORDERS BY TRANSACTION ==========\n\n";
+    
+    if(orders.empty()) {
+        cout << "No orders found!\n";
+        cout << "Press Enter to continue...";
+        cin.ignore();
+        cin.get();
+        return;
+    }
+    
+    string currentTimestamp = "";
+    float transactionTotal = 0;
+    int transactionNum = 0;
+    
+    for(const auto &order : orders) {
+        // Check if this is a new transaction (different timestamp)
+        if(order.getItemOrderTimestamp() != currentTimestamp) {
+            // Print previous transaction total (if not first)
+            if(!currentTimestamp.empty()) {
+                cout << "    -----------------------------------\n";
+                cout << "    Transaction Total: $" << transactionTotal << "\n";
+                cout << "========================================\n\n";
+            }
+            
+            // Start new transaction
+            transactionNum++;
+            currentTimestamp = order.getItemOrderTimestamp();
+            transactionTotal = 0;
+            
+            cout << "Transaction " << transactionNum << "\n";
+            cout << "Time: " << currentTimestamp << "\n";
+            cout << "----------------------------------------\n";
+        }
+        
+        // Display item in this transaction
+        float subtotal = order.getItemOrderPrice() * order.getItemOrderAmount();
+        transactionTotal += subtotal;
+        
+        cout << "    " << order.getItemOrderName() 
+             << " (" << order.getItemOrderCategory() << ")\n";
+        cout << "    $" << order.getItemOrderPrice() 
+             << " x " << order.getItemOrderAmount() 
+             << " = $" << subtotal << "\n";
+    }
+    
+    // Print last transaction total
+    if(!currentTimestamp.empty()) {
+        cout << "    -----------------------------------\n";
+        cout << "    Transaction Total: $" << transactionTotal << "\n";
+        cout << "========================================\n";
+    }
+    
+    cout << "\nTotal Transactions: " << transactionNum << "\n";
+    cout << "\nPress Enter to continue...";
+    cin.ignore();
+    cin.get();
+}

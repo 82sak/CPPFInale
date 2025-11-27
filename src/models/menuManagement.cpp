@@ -133,3 +133,68 @@ void showAllProduct(){
     cin.ignore();
     cin.get();
 }
+
+bool adminAuth(){
+    int attempts = 3;
+    
+    while(attempts > 0) {
+        system("cls");
+        cout << "========== STAFF LOGIN ==========\n";
+        cout << "Attempts remaining: " << attempts << "\n\n";
+        
+        string userName;
+        string userPass;
+        
+        cin.ignore();
+        cout << "Enter Username: ";
+        getline(cin, userName);
+        cout << "Enter Password: ";
+        getline(cin, userPass);
+        
+        // Check if credentials match any staff
+        bool found = false;
+        if(userName == "admin" && userPass == "password"){
+            found = true;
+            cout << "\n Login successful!\n";
+                cout << "Press Enter to continue...";
+                cin.get();
+                return true;
+        }
+        if(!found) {
+            attempts--;
+            if(attempts > 0) {
+                cout << "\n Invalid username or password!\n";
+                cout << "Attempts remaining: " << attempts << "\n";
+                cout << "Press Enter to try again...";
+                cin.get();
+            } else {
+                cout << "\n Login failed! No attempts remaining.\n";
+                cout << "Press Enter to return...";
+                cin.get();
+            }
+        }
+    }
+    return false;
+}
+
+void showSummaryOneDay(){
+    string filename = "../../data/orderInfo.xlsx";
+    vector<Order> orders  = readExcelFromOrderInfoToVector(filename);
+    
+    system("cls");
+    cout << "===== 1 day =====\n";
+
+    
+    for(const auto &order : orders){
+        cout << order.getItemOrderTimestamp();
+        if(order.getItemOrderTimestamp() == "2025-11-27"){
+            cout << order.getItemOrderTimestamp();
+            break;
+        }
+    }
+    cout << "\nPress Enter to continue...";
+    cin.ignore();
+    cin.get();
+}
+void showSummaryOneWeek();
+void showSummaryOneMonth();

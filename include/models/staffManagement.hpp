@@ -4,3 +4,4 @@ void addNewStaffAccount();
 void updateStaffAccount();
 void deleteStaffAccount();
 void showAllStaff();
+bool staffAuth();
