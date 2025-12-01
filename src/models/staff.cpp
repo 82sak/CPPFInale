@@ -6,110 +6,142 @@
 #include "models/menuInfo.hpp"
 #include "models/excelUtils.hpp"
 
-
 using namespace std;
 
-#define RESET   "\033[0m"
-#define BLUE   "\033[34m"
-#define GREEN   "\033[32m"
-#define CYAN    "\033[36m"
-#define YELLOW  "\033[33m"
-#define RED     "\033[31m"
-#define BOLD    "\033[1m"
+// Modern color scheme
+#define RESET "\033[0m"
+#define PRIMARY "\033[38;5;147m"   // Soft purple
+#define SECONDARY "\033[38;5;189m" // Light lavender
+#define ACCENT "\033[38;5;213m"    // Pink accent
+#define TEXT "\033[38;5;255m"      // White text
+#define MUTED "\033[38;5;245m"     // Gray muted
+#define SUCCESS "\033[38;5;120m"   // Mint green
+#define ERROR "\033[38;5;210m"     // Coral red
+#define WARNING "\033[38;5;222m"   // Peach
+#define BOLD "\033[1m"
+#define DIM "\033[2m"
 
-void displayStaffPage(){
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << GREEN << BOLD << "\t\t\t|      WELCOME TO STAFF PANEL   |\n";
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. Show Menu\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. Show Receipt\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+void displayStaffPage()
+{
+     cout << "\n\n";
+     cout << PRIMARY << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << PRIMARY << "                                      ║  " << BOLD << ACCENT << "              💼 WELCOME TO STAFF PANEL 💼" << RESET << PRIMARY << "                    ║\n";
+     cout << PRIMARY << "                                      ╠════════════════════════════════════════════════════════════════╣\n";
+     cout << PRIMARY << "                                      ║   " << ACCENT << "             📜  1. " << TEXT << "Show Menu" << RESET << PRIMARY << "                                ║\n";
+     cout << PRIMARY << "                                      ║   " << ACCENT << "             🧾  2. " << TEXT << "Show Receipt" << RESET << PRIMARY << "                             ║\n";
+     cout << PRIMARY << "                                      ║   " << ERROR << "             🛑  0. " << TEXT << "Exit" << RESET << PRIMARY << "                                     ║\n";
+     cout << PRIMARY << "                                      ╚════════════════════════════════════════════════════════════════╝\n";
+     cout << RESET;
 }
 
-void showMenu(){
-    string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
+void showMenu()
+{
+     string filename = "../../data/productInfo.xlsx";
+     vector<Product> products = readExcelFromMenuInfoToVector(filename);
 
-    system("cls");
-    cout << "========== ALL Product ==========\n\n";
+     system("cls");
+     cout << "\n\n";
+     cout << PRIMARY << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << PRIMARY << "                                      ║  " << BOLD << ACCENT << "                     🧃 ALL PRODUCTS 🧃" << RESET << PRIMARY << "                       ║\n";
+     cout << PRIMARY << "                                      ╚════════════════════════════════════════════════════════════════╝\n";
+     cout << RESET << "\n";
 
-    if(products.empty()){
-        cout << "No product found!";
-    }else{
-        int count = 1;
-        for(const auto &product : products){
-            cout << "[" << count << "]" <<"    Product Name : " << product.getItemName() << endl;
-            cout << "    Product Price : " << product.getItemPrice() << endl;
-            cout << "    Product Amount : " << product.getItemAmount() << endl;
-            cout << "    Product Category : " << product.getItemCategory() << endl;
-            count++;
-        }
-        cout << "Total Product : " << products.size() << endl;
-    }
-    cout << "\nPress Enter to continue...";
-    cin.ignore();
-    cin.get();
+     if (products.empty())
+     {
+          cout << "     " << ERROR << "No Product Found!\n"
+               << RESET;
+     }
+     else
+     {
+          int count = 1;
+          for (const auto &product : products)
+          {
+               cout << "\n     " << SUCCESS << BOLD << "[" << count << "] " << RESET;
+               cout << ACCENT << "Product Name     : " << TEXT << product.getItemName() << RESET << "\n";
+               cout << "         " << ACCENT << "Product Price    : " << SUCCESS << "$" << product.getItemPrice() << RESET << "\n";
+               cout << "         " << ACCENT << "Product Amount   : " << SECONDARY << product.getItemAmount() << RESET << "\n";
+               cout << "         " << ACCENT << "Product Category : " << PRIMARY << product.getItemCategory() << RESET << "\n";
+               count++;
+          }
+          cout << "\n     " << WARNING << BOLD << "Total Products : " << TEXT << products.size() << RESET << "\n";
+     }
+
+     cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+     cin.ignore();
+     cin.get();
 }
 
-void showReceipt() {
-    string filename = "../../data/orderInfo.xlsx";
-    vector<Order> orders = readExcelFromOrderInfoToVector(filename);
-    
-    system("cls");
-    cout << "========== ORDERS BY TRANSACTION ==========\n\n";
-    
-    if(orders.empty()) {
-        cout << "No orders found!\n";
-        cout << "Press Enter to continue...";
-        cin.ignore();
-        cin.get();
-        return;
-    }
-    
-    string currentTimestamp = "";
-    float transactionTotal = 0;
-    int transactionNum = 0;
-    
-    for(const auto &order : orders) {
-        // Check if this is a new transaction (different timestamp)
-        if(order.getItemOrderTimestamp() != currentTimestamp) {
-            // Print previous transaction total (if not first)
-            if(!currentTimestamp.empty()) {
-                cout << "    -----------------------------------\n";
-                cout << "    Transaction Total: $" << transactionTotal << "\n";
-                cout << "========================================\n\n";
-            }
-            
-            // Start new transaction
-            transactionNum++;
-            currentTimestamp = order.getItemOrderTimestamp();
-            transactionTotal = 0;
-            
-            cout << "Transaction " << transactionNum << "\n";
-            cout << "Time: " << currentTimestamp << "\n";
-            cout << "----------------------------------------\n";
-        }
-        
-        // Display item in this transaction
-        float subtotal = order.getItemOrderPrice() * order.getItemOrderAmount();
-        transactionTotal += subtotal;
-        
-        cout << "    " << order.getItemOrderName() 
-             << " (" << order.getItemOrderCategory() << ")\n";
-        cout << "    $" << order.getItemOrderPrice() 
-             << " x " << order.getItemOrderAmount() 
-             << " = $" << subtotal << "\n";
-    }
-    
-    // Print last transaction total
-    if(!currentTimestamp.empty()) {
-        cout << "    -----------------------------------\n";
-        cout << "    Transaction Total: $" << transactionTotal << "\n";
-        cout << "========================================\n";
-    }
-    
-    cout << "\nTotal Transactions: " << transactionNum << "\n";
-    cout << "\nPress Enter to continue...";
-    cin.ignore();
-    cin.get();
+void showReceipt()
+{
+     string filename = "../../data/orderInfo.xlsx";
+     vector<Order> orders = readExcelFromOrderInfoToVector(filename);
+
+     system("cls");
+     cout << "\n\n";
+     cout << PRIMARY << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << PRIMARY << "                                      ║  " << BOLD << ACCENT << "                🧲 ORDERS BY TRANSACTION 🧲" << RESET << PRIMARY << "                   ║\n";
+     cout << PRIMARY << "                                      ╚════════════════════════════════════════════════════════════════╝\n";
+     cout << RESET << "\n";
+
+     if (orders.empty())
+     {
+          cout << "     " << ERROR << "No orders found!\n"
+               << RESET;
+          cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+          cin.ignore();
+          cin.get();
+          return;
+     }
+
+     string currentTimestamp = "";
+     float transactionTotal = 0;
+     int transactionNum = 0;
+
+     for (const auto &order : orders)
+     {
+          if (order.getItemOrderTimestamp() != currentTimestamp)
+          {
+               if (!currentTimestamp.empty())
+               {
+                    cout << "         " << MUTED << "───────────────────────────────────────\n"
+                         << RESET;
+                    cout << "         " << ACCENT << "Transaction Total: " << SUCCESS << BOLD << "$" << transactionTotal << RESET << "\n";
+                    cout << "     " << PRIMARY << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                         << RESET;
+                    cout << "\n";
+               }
+
+               transactionNum++;
+               currentTimestamp = order.getItemOrderTimestamp();
+               transactionTotal = 0;
+
+               cout << "     " << ACCENT << BOLD << "Transaction " << transactionNum << RESET << "\n";
+               cout << "     " << SECONDARY << "Time: " << TEXT << currentTimestamp << RESET << "\n";
+               cout << "     " << SECONDARY << "────────────────────────────────────────────────────────\n"
+                    << RESET;
+          }
+
+          float subtotal = order.getItemOrderPrice() * order.getItemOrderAmount();
+          transactionTotal += subtotal;
+
+          cout << "         " << TEXT << order.getItemOrderName()
+               << " " << MUTED << "(" << order.getItemOrderCategory() << ")" << RESET << "\n";
+          cout << "         " << SECONDARY << "$" << order.getItemOrderPrice()
+               << " x " << order.getItemOrderAmount()
+               << " = " << SUCCESS << BOLD << "$" << subtotal << RESET << "\n";
+     }
+
+     if (!currentTimestamp.empty())
+     {
+          cout << "         " << MUTED << "───────────────────────────────────────\n"
+               << RESET;
+          cout << "         " << ACCENT << "Transaction Total: " << SUCCESS << BOLD << "$" << transactionTotal << RESET << "\n";
+          cout << "     " << PRIMARY << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+               << RESET;
+     }
+
+     cout << "\n     " << ACCENT << BOLD << "Total Transactions: " << TEXT << transactionNum << RESET << "\n";
+     cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+     cin.ignore();
+     cin.get();
 }

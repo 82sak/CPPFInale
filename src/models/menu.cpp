@@ -12,30 +12,46 @@
 
 using namespace std;
 
-#define RESET   "\033[0m"
-#define BLUE   "\033[34m"
-#define GREEN   "\033[32m"
-#define CYAN    "\033[36m"
-#define YELLOW  "\033[33m"
-#define RED     "\033[31m"
-#define BOLD    "\033[1m"
+#define RESET "\033[0m"
+#define BLUE "\033[34m"
+#define GREEN "\033[32m"
+#define CYAN "\033[36m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+#define BOLD "\033[1m"
+#define PURPLE "\033[35m"
+#define GRAY "\033[90m"
 
-void displayMenuPage(){
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << GREEN << BOLD << "\t\t\t|          WELCOME TO MENU      |\n";
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. Menu\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. Cart\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+// Additional color definitions for consistency
+#define PRIMARY CYAN
+#define ACCENT YELLOW
+#define TEXT RESET
+#define ERROR RED
+
+void displayMenuPage()
+{
+     cout << "\n\n";
+     cout << PRIMARY << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << PRIMARY << "                                      ║  " << BOLD << ACCENT << "                 🍽️  WELCOME TO MENU 🍽️" << RESET << PRIMARY << "                         ║\n";
+     cout << PRIMARY << "                                      ╠════════════════════════════════════════════════════════════════╣\n";
+     cout << PRIMARY << "                                      ║   " << ACCENT << "                📋  1. " << TEXT << "Menu" << RESET << PRIMARY << "                                  ║\n";
+     cout << PRIMARY << "                                      ║   " << ACCENT << "                🛒  2. " << TEXT << "Cart" << RESET << PRIMARY << "                                  ║\n";
+     cout << PRIMARY << "                                      ║   " << ERROR << "                🌀  0. " << TEXT << "Exit" << RESET << PRIMARY << "                                  ║\n";
+     cout << PRIMARY << "                                      ╚════════════════════════════════════════════════════════════════╝\n";
+     cout << RESET;
 }
 
-void displayCategory(){
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << GREEN << BOLD << "\t\t\t|            CATEGORIES         |\n";
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. Food\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. Drinks\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+void displayCategory()
+{
+     cout << "\n\n";
+     cout << PRIMARY << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << PRIMARY << "                                      ║  " << BOLD << ACCENT << "                  🗂️  CATEGORIES MENU 🗂️" << RESET << PRIMARY << "                        ║\n";
+     cout << PRIMARY << "                                      ╠════════════════════════════════════════════════════════════════╣\n";
+     cout << PRIMARY << "                                      ║   " << ACCENT << "                   🍔  1. " << TEXT << "Food" << RESET << PRIMARY << "                               ║\n";
+     cout << PRIMARY << "                                      ║   " << ACCENT << "                   🥤  2. " << TEXT << "Drinks" << RESET << PRIMARY << "                             ║\n";
+     cout << PRIMARY << "                                      ║   " << ERROR << "                   🌀  0. " << TEXT << "Exit" << RESET << PRIMARY << "                               ║\n";
+     cout << PRIMARY << "                                      ╚════════════════════════════════════════════════════════════════╝\n";
+     cout << RESET;
 }
 
 vector<string> orderName;
@@ -43,224 +59,407 @@ vector<float> orderPrice;
 vector<int> orderAmount;
 vector<string> orderCategory;
 
-void displayFood(){
-    string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
-    string food = "food";
+void displayFood()
+{
+     string filename = "../../data/productInfo.xlsx";
+     vector<Product> products = readExcelFromMenuInfoToVector(filename);
+     string food = "food";
 
-    system("cls");
-    cout << "========== Food ==========\n\n";
+     system("cls");
+     cout << "\n\n";
+     cout << BLUE << BOLD
+          << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << BLUE << BOLD
+          << "                                      ║                      🍔  FOOD MENU  🍔                         ║\n";
+     cout << BLUE << BOLD
+          << "                                      ╚════════════════════════════════════════════════════════════════╝\n"
+          << RESET;
+     cout << endl;
 
-    if(products.empty()){
-        cout << "No product found!";
-    }else{
-        int count = 1;
-        for(const auto &product : products){
-            if(product.getItemCategory() == food){
-                cout << "[" << count << "]" <<"    Product Name : " << product.getItemName() << endl;
-                cout << "    Product Price : " << product.getItemPrice() << endl;
-                // cout << "    Product Amount : " << product.getItemAmount() << endl;
-                // cout << "    Product Category : " << product.getItemCategory() << endl;
-                count++;
-            }
-        }
-        // cout << "Total Product : " << products.size() << endl;
-    }
+     if (products.empty())
+     {
+          cout << "                                      " << RED << "⚠️  No product found!" << RESET << endl;
+     }
+     else
+     {
+          int count = 1;
+          for (const auto &product : products)
+          {
+               if (product.getItemCategory() == food)
+               {
+                    cout << "                                      " << YELLOW << BOLD
+                         << "╔════════════════════════════════════════════════════════════════╗\n";
+                    cout << "                                      " << YELLOW << BOLD << "║" << CYAN << "[" << count << "] " << product.getItemName();
+                    int padding = 60 - product.getItemName().length() - to_string(count).length();
+                    for (int i = 0; i < padding; i++)
+                         cout << " ";
+                    cout << YELLOW << " ║\n"
+                         << RESET;
 
-    string orderItem;
-    int amount;
-    cin.ignore();
-    cout << "Enter Food Name to Order : ";
-    getline(cin, orderItem);
+                    cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << product.getItemPrice();
+                    padding = 53 - to_string(product.getItemPrice()).length();
+                    for (int i = 0; i < padding; i++)
+                         cout << " ";
+                    cout << YELLOW << "    ║\n"
+                         << RESET;
 
-    bool found = false;
-    for(const auto &product : products){
-        if(product.getItemName() == orderItem && product.getItemCategory() == food){
-            found = true;
-            cout << "Enter Amount : ";
-            cin >> amount ;
-            if(amount > product.getItemAmount()){
-                cout << "Sorry, only " << product.getItemAmount() << " available\n";
-                cin.ignore();
-                cin.get();
-            }else{
-                orderName.push_back(orderItem);
-                orderPrice.push_back(product.getItemPrice());
-                orderAmount.push_back(amount);
-                orderCategory.push_back(food);
-            }
-            
-        }
-    }
-    if(!found){
-        cout << " This kind of food is not exist in our restaurant";
-        cin.ignore();
-        cin.get();
-    }
+                    cout << "                                      " << YELLOW << BOLD << "║" << GRAY << "📦 Available: " << product.getItemAmount();
+                    padding = 50 - to_string(product.getItemAmount()).length();
+                    for (int i = 0; i < padding; i++)
+                         cout << " ";
+                    cout << YELLOW << "║\n"
+                         << RESET;
 
+                    cout << "                                      " << YELLOW << BOLD
+                         << "╚════════════════════════════════════════════════════════════════╝\n"
+                         << RESET;
+                    count++;
+               }
+          }
+     }
+
+     string orderItem;
+     int amount;
+     cout << endl;
+     cin.ignore();
+     cout << "                                      " << RED << "Enter Food Name to Order : " << RESET;
+     getline(cin, orderItem);
+
+     bool found = false;
+     for (const auto &product : products)
+     {
+          if (product.getItemName() == orderItem && product.getItemCategory() == food)
+          {
+               found = true;
+               cout << "                                      " << RED << "Enter Amount : " << RESET;
+               cin >> amount;
+               if (amount > product.getItemAmount())
+               {
+                    cout << "                                      " << RED << "\n⚠️  Sorry, only " << product.getItemAmount() << " available\n"
+                         << RESET;
+                    cin.ignore();
+                    cin.get();
+               }
+               else
+               {
+                    orderName.push_back(orderItem);
+                    orderPrice.push_back(product.getItemPrice());
+                    orderAmount.push_back(amount);
+                    orderCategory.push_back(food);
+                    cout << "                                      " << GREEN << "\n✓ Added to cart successfully!\n"
+                         << RESET;
+               }
+          }
+     }
+     if (!found)
+     {
+          cout << "                                      " << RED << "\n⚠️  This item doesn't exist in our restaurant\n"
+               << RESET;
+          cin.ignore();
+          cin.get();
+     }
 }
 
-void displayDrink(){
-    string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
-    string drink = "drink";
+void displayDrink()
+{
+     string filename = "../../data/productInfo.xlsx";
+     vector<Product> products = readExcelFromMenuInfoToVector(filename);
+     string drink = "drink";
 
-    system("cls");
-    cout << "========== Food ==========\n\n";
+     system("cls");
+     cout << "\n\n";
+     cout << PURPLE << BOLD
+          << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << PURPLE << BOLD
+          << "                                      ║                     🥤  DRINKS MENU  🥤                        ║\n";
+     cout << PURPLE << BOLD
+          << "                                      ╚════════════════════════════════════════════════════════════════╝\n"
+          << RESET;
+     cout << endl;
 
-    if(products.empty()){
-        cout << "No product found!";
-    }else{
-        int count = 1;
-        for(const auto &product : products){
-            if(product.getItemCategory() == drink){
-                cout << "[" << count << "]" <<"    Product Name : " << product.getItemName() << endl;
-                cout << "    Product Price : " << product.getItemPrice() << endl;
-                // cout << "    Product Amount : " << product.getItemAmount() << endl;
-                // cout << "    Product Category : " << product.getItemCategory() << endl;
-                count++;
-            }
-        }
-        // cout << "Total Product : " << products.size() << endl;
-    }
+     if (products.empty())
+     {
+          cout << "                                      " << RED << "⚠️  No product found!" << RESET << endl;
+     }
+     else
+     {
+          int count = 1;
+          for (const auto &product : products)
+          {
+               if (product.getItemCategory() == drink)
+               {
+                    cout << "                                      " << YELLOW << BOLD
+                         << "╔════════════════════════════════════════════════════════════════╗\n";
+                    cout << "                                      " << YELLOW << BOLD << "║ " << CYAN << "[" << count << "] " << product.getItemName();
+                    int padding = 59 - product.getItemName().length() - to_string(count).length();
+                    for (int i = 0; i < padding; i++)
+                         cout << " ";
+                    cout << YELLOW << " ║\n"
+                         << RESET;
 
-    string orderItem;
-    int amount;
-    cin.ignore();
-    cout << "Enter Drink Name to Order : ";
-    getline(cin, orderItem);
+                    cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << product.getItemPrice();
+                    padding = 52 - to_string(product.getItemPrice()).length();
+                    for (int i = 0; i < padding; i++)
+                         cout << " ";
+                    cout << YELLOW << "     ║\n"
+                         << RESET;
 
-    bool found = false;
-    for(const auto &product : products){
-        if(product.getItemName() == orderItem && product.getItemCategory() == drink){
-            found = true;
-            cout << "Enter Amount : ";
-            cin >> amount ;
-            if(amount > product.getItemAmount()){
-                cout << "Sorry, only " << product.getItemAmount() << " available\n";
-                cin.ignore();
-                cin.get();
-            }else {
-                orderName.push_back(orderItem);
-                orderPrice.push_back(product.getItemPrice());
-                orderAmount.push_back(amount);
-                orderCategory.push_back(drink);
-            }
-            
-        }
-    }
-    if(!found){
-        cout << "\nThis kind of food is not exist in our restaurant";
-        cin.ignore();
-        cin.get();
-    }
+                    cout << "                                      " << YELLOW << BOLD << "║ " << GRAY << "📦 Available: " << product.getItemAmount();
+                    padding = 49 - to_string(product.getItemAmount()).length();
+                    for (int i = 0; i < padding; i++)
+                         cout << " ";
+                    cout << YELLOW << "║\n"
+                         << RESET;
+
+                    cout << "                                      " << YELLOW << BOLD
+                         << "╚════════════════════════════════════════════════════════════════╝\n"
+                         << RESET;
+                    count++;
+               }
+          }
+     }
+
+     string orderItem;
+     int amount;
+     cout << endl;
+     cin.ignore();
+     cout << "                                      " << RED << "Enter Drink Name to Order : " << RESET;
+     getline(cin, orderItem);
+
+     bool found = false;
+     for (const auto &product : products)
+     {
+          if (product.getItemName() == orderItem && product.getItemCategory() == drink)
+          {
+               found = true;
+               cout << "                                      " << RED << "Enter Amount : " << RESET;
+               cin >> amount;
+               if (amount > product.getItemAmount())
+               {
+                    cout << "                                      " << RED << "\n⚠️  Sorry, only " << product.getItemAmount() << " available\n"
+                         << RESET;
+                    cin.ignore();
+                    cin.get();
+               }
+               else
+               {
+                    orderName.push_back(orderItem);
+                    orderPrice.push_back(product.getItemPrice());
+                    orderAmount.push_back(amount);
+                    orderCategory.push_back(drink);
+                    cout << "                                      " << GREEN << "\n✓ Added to cart successfully!\n"
+                         << RESET;
+               }
+          }
+     }
+     if (!found)
+     {
+          cout << "                                      " << RED << "\n⚠️  This item doesn't exist in our restaurant\n"
+               << RESET;
+          cin.ignore();
+          cin.get();
+     }
 }
 
-string getCurrentTimestamp() {
-    auto now = chrono::system_clock::now();
-    time_t now_time = chrono::system_clock::to_time_t(now);
-    
-    stringstream ss;
-    ss << put_time(localtime(&now_time), "%Y-%m-%d %H-%M-%S");
-    return ss.str();
+string getCurrentTimestamp()
+{
+     auto now = chrono::system_clock::now();
+     time_t now_time = chrono::system_clock::to_time_t(now);
+
+     stringstream ss;
+     ss << put_time(localtime(&now_time), "%Y-%m-%d %H-%M-%S");
+     return ss.str();
 }
 
-void displayCart(){
-    system("cls");
-    cout << "========== Cart ==========\n\n";
+void displayCart()
+{
+     system("cls");
+     cout << "\n\n";
+     cout << GREEN << BOLD
+          << "                                      ╔════════════════════════════════════════════════════════════════╗\n";
+     cout << GREEN << BOLD
+          << "                                      ║                      🛒  YOUR CART  🛒                         ║\n";
+     cout << GREEN << BOLD
+          << "                                      ╚════════════════════════════════════════════════════════════════╝\n"
+          << RESET;
+     cout << endl;
 
-    float price;
-    float total = 0;
-    bool cond = true;
-    if(orderName.empty()){
-        cout << "Your cart is empty!";
-        cond = false;
-    }else{
-        for(int i = 0; i < orderName.size(); i++){
-            cout << "Name : " << orderName[i] << endl;
-            cout << "Price : " << orderPrice[i] << endl;
-            cout << "Amount : " << orderAmount[i] << endl;
-            cout << "============================\n";
-            price = orderPrice[i] * orderAmount[i];
-            total += price;
-        }
-        cout << " Total Price : $" << total << endl;
-    }
+     float price;
+     float total = 0;
+     bool cond = true;
+     int padding;
 
-    while(cond){
-        int option;
-        cout << "\n1. Delete Item\n";
-        cout << "2. Confirm\n";
-        cout << "0. Exit\n";
-        cout << "Choose an Option : ";
-        cin >> option;
-        if(option == 0){
-            break;
-        }
-        switch(option){
-            case 1:{
-                // Remove item from cart
-                string deleteItem;
+     if (orderName.empty())
+     {
+          cout << "                                      " << YELLOW << BOLD
+               << "╔════════════════════════════════════════════════════════════════╗\n";
+          cout << "                                      " << YELLOW << BOLD
+               << "║                  Your cart is empty! 📭                        ║\n";
+          cout << "                                      " << YELLOW << BOLD
+               << "║              Add items from the menu to start                  ║\n";
+          cout << "                                      " << YELLOW << BOLD
+               << "╚════════════════════════════════════════════════════════════════╝\n"
+               << RESET;
+          cond = false;
+     }
+     else
+     {
+          for (int i = 0; i < orderName.size(); i++)
+          {
+               cout << "                                      " << YELLOW << BOLD
+                    << "╔════════════════════════════════════════════════════════════════╗\n";
+               cout << "                                      " << YELLOW << BOLD << "║ " << CYAN << orderName[i];
+               int padding = 63 - orderName[i].length();
+               for (int j = 0; j < padding; j++)
+                    cout << " ";
+               cout << YELLOW << "║\n"
+                    << RESET;
 
-                cin.ignore();
-                cout << "Enter Item Name to Removed : ";
-                getline(cin, deleteItem);
-                bool found = false;
-                for(int i = 0; i < orderName.size(); i++){
-                    if(orderName[i] == deleteItem){
-                        found = true;
-                        orderName.erase(orderName.begin() + i);
-                        orderPrice.erase(orderPrice.begin() + i);
-                        orderAmount.erase(orderAmount.begin() + i);
-                        orderCategory.erase(orderCategory.begin() + i);
-                        cout << "\nItem removed from cart successfully!" ;
-                        break;
+               cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 $" << orderPrice[i] << RESET << YELLOW << " × " << CYAN << orderAmount[i] << RESET << YELLOW << " = " << GREEN << "$" << (orderPrice[i] * orderAmount[i]);
+               string priceStr = to_string(orderPrice[i]);
+               string amountStr = to_string(orderAmount[i]);
+               string totalStr = to_string(orderPrice[i] * orderAmount[i]);
+               padding = 54 - priceStr.length() - amountStr.length() - totalStr.length();
+               for (int j = 0; j < padding; j++)
+                    cout << " ";
+               cout << YELLOW << "        ║\n"
+                    << RESET;
+
+               cout << "                                      " << YELLOW << BOLD
+                    << "╚════════════════════════════════════════════════════════════════╝\n"
+                    << RESET;
+               price = orderPrice[i] * orderAmount[i];
+               total += price;
+          }
+
+          cout << endl;
+          cout << "                                      " << CYAN << BOLD
+               << "╔════════════════════════════════════════════════════════════════╗\n";
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Total: $" << total;
+          padding = 54 - to_string(total).length();
+          for (int j = 0; j < padding; j++)
+               cout << " ";
+          cout << CYAN << "   ║\n"
+               << RESET;
+          cout << "                                      " << CYAN << BOLD
+               << "╚════════════════════════════════════════════════════════════════╝\n"
+               << RESET;
+          cout << endl;
+     }
+
+     while (cond)
+     {
+          int option;
+          cout << "                                      " << CYAN << BOLD
+               << "╔════════════════════════════════════════════════════════════════╗\n";
+          cout << "                                      " << CYAN << BOLD << "║   " << BLUE << "🗑️  1. " << TEXT << "Delete Item" << RESET << PRIMARY << "                                            ║\n"
+               << RESET;
+          cout << "                                      " << CYAN << BOLD << "║   " << GREEN << "✓  2. " << TEXT << "Confirm Order" << RESET << PRIMARY << "                                          ║\n"
+               << RESET;
+          cout << "                                      " << CYAN << BOLD << "║   " << RED << "↩️  0. " << TEXT << "Exit" << RESET << PRIMARY << "                                                   ║\n"
+               << RESET;
+          cout << "                                      " << CYAN << BOLD
+               << "╚════════════════════════════════════════════════════════════════╝\n"
+               << RESET;
+          cout << "                                      " << RED << "Choose an Option : " << RESET;
+          cin >> option;
+
+          if (option == 0)
+          {
+               break;
+          }
+
+          switch (option)
+          {
+          case 1:
+          {
+               string deleteItem;
+               cin.ignore();
+               cout << "                                      " << RED << "Enter Item Name to Remove : " << RESET;
+               getline(cin, deleteItem);
+               bool found = false;
+               for (int i = 0; i < orderName.size(); i++)
+               {
+                    if (orderName[i] == deleteItem)
+                    {
+                         found = true;
+                         orderName.erase(orderName.begin() + i);
+                         orderPrice.erase(orderPrice.begin() + i);
+                         orderAmount.erase(orderAmount.begin() + i);
+                         orderCategory.erase(orderCategory.begin() + i);
+                         cout << "                                      " << GREEN << "\n✓ Item removed from cart successfully!\n"
+                              << RESET;
+                         break;
                     }
-                }
-                if(!found){
-                    cout << "Item not found";
-                }
-                break;
-            }
-            case 2:{
-                // confirm order and store in excel
-                string filename = "../../data/orderInfo.xlsx";
-                vector<Order> orders  = readExcelFromOrderInfoToVector(filename);
+               }
+               if (!found)
+               {
+                    cout << "                                      " << RED << "\n⚠️  Item not found\n"
+                         << RESET;
+               }
+               break;
+          }
+          case 2:
+          {
+               string filename = "../../data/orderInfo.xlsx";
+               vector<Order> orders = readExcelFromOrderInfoToVector(filename);
 
-                string productInfo = "../../data/productInfo.xlsx";
-                vector<Product> products  = readExcelFromMenuInfoToVector(productInfo);
-                string timestamp = getCurrentTimestamp();
+               string productInfo = "../../data/productInfo.xlsx";
+               vector<Product> products = readExcelFromMenuInfoToVector(productInfo);
+               string timestamp = getCurrentTimestamp();
 
-                for(int i = 0 ; i < orderName.size(); i++){
-                    for( auto &product : products){
-                        if(product.getItemName() == orderName[i]){
-                            int newAmount = product.getItemAmount() - orderAmount[i];
-                            product.setItemAmount(newAmount);
-                            break;
-                        }
+               for (int i = 0; i < orderName.size(); i++)
+               {
+                    for (auto &product : products)
+                    {
+                         if (product.getItemName() == orderName[i])
+                         {
+                              int newAmount = product.getItemAmount() - orderAmount[i];
+                              product.setItemAmount(newAmount);
+                              break;
+                         }
                     }
                     orders.emplace_back(orderName[i], orderPrice[i], orderAmount[i], orderCategory[i], timestamp);
-                }
+               }
 
-                writeExcelToOrderInfo(filename, orders);
-                writeExcelToMenuInfo(productInfo, products);
-                orderName.clear();
-                orderPrice.clear();
-                orderAmount.clear();
-                orderCategory.clear();
-                cout << "\n✓ Order placed successfully!\n";
-                cout << "✓ Order time: " << timestamp << "\n";  // ← Show timestamp
-                cout << "Thank you for your order!\n";
-                cond = false;
-                break;
-            }
-            default : {
-                break;
-            }
-        }
-    }
+               writeExcelToOrderInfo(filename, orders);
+               writeExcelToMenuInfo(productInfo, products);
 
-    cout << "\nPress Enter to continue...";
-    cin.ignore();
-    cin.get();
+               orderName.clear();
+               orderPrice.clear();
+               orderAmount.clear();
+               orderCategory.clear();
+
+               cout << "\n";
+               cout << "                                      " << GREEN << BOLD
+                    << "╔════════════════════════════════════════════════════════════════╗\n";
+               cout << "                                      " << GREEN << BOLD
+                    << "║               ✓ Order placed successfully! 🎉                  ║\n";
+               cout << "                                      " << GREEN << BOLD << "║" << CYAN << "📅 Order time:" << timestamp;
+               int padding = 50 - timestamp.length();
+               for (int j = 0; j < padding; j++)
+                    cout << " ";
+               cout << GREEN << "║\n"
+                    << RESET;
+               cout << "                                      " << GREEN << BOLD
+                    << "║               Thank you for your order! 😊                     ║\n";
+               cout << "                                      " << GREEN << BOLD
+                    << "╚════════════════════════════════════════════════════════════════╝\n"
+                    << RESET;
+               cond = false;
+               break;
+          }
+          default:
+          {
+               cout << "                                      " << RED << "⚠️  Invalid option\n"
+                    << RESET;
+               break;
+          }
+          }
+     }
+
+     cout << "\n";
+     cout << "                                      " << GRAY << "Press Enter to continue..." << RESET;
+     cin.ignore();
+     cin.get();
 }

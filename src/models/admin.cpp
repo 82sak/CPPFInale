@@ -1,51 +1,63 @@
 #include "models/admin.hpp"
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
-#define RESET   "\033[0m"
-#define BLUE   "\033[34m"
-#define GREEN   "\033[32m"
-#define CYAN    "\033[36m"
-#define YELLOW  "\033[33m"
-#define RED     "\033[31m"
-#define BOLD    "\033[1m"
+#define RESET "\033[0m"
+#define BLUE "\033[34m"
+#define GREEN "\033[32m"
+#define CYAN "\033[36m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+#define BOLD "\033[1m"
 
-void displayAdminPage(){
-    cout << GREEN << BOLD <<"\t\t\t=================================\n";
-    cout << GREEN << BOLD << "\t\t\t|      WELCOME TO ADMIN PANEL   |\n";
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. Menu Management\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. Staff Management\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t3. Sales Summary\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+void displayAdminPage()
+{
+    cout << BLUE << BOLD << "                                     ▟▀▙═══════════════════════════════════════════════════════════════╗" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << GREEN << "              ✨ WELCOME TO ADMIN PANEL ✨" << RESET << BLUE << BOLD << "                      ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╠═══════════════════════════════════════════════════════════════▟▀▙" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             🧩  1. Menu Management" << RESET << BLUE << BOLD << "                             ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             👥  2. Staff Management" << RESET << BLUE << BOLD << "                            ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             📊  3. Sales Summary" << RESET << BLUE << BOLD << "                               ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << RED << "             🌀  0. Exit" << RESET << BLUE << BOLD << "                                        ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╚════════════════════════════════════════════════════════════════╝" << RESET << endl;
 }
-void displayMenuManagementPage(){
-    cout << GREEN << BOLD <<" \t\t\t=====================================\n";
-    cout << GREEN << BOLD << "\t\t\t|      WELCOME TO MENU MANAGEMENT   |\n";
-    cout << GREEN << BOLD << "\t\t\t=====================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. Add new Products\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. Update Product\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t3. Delete Products\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t4. Show all Products\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+
+void displayMenuManagementPage()
+{
+    cout << BLUE << BOLD << "                                     ▟▀▙═══════════════════════════════════════════════════════════════╗" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << GREEN << "                   🍔 MENU MANAGEMENT 🍔" << RESET << BLUE << BOLD << "                        ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╠═══════════════════════════════════════════════════════════════▟▀▙" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             ➕  1. Add new Products" << RESET << BLUE << BOLD << "                            ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             ✏️   2. Update Product" << RESET << BLUE << BOLD << "                              ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             ❌  3. Delete Products" << RESET << BLUE << BOLD << "                             ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             📋  4. Show all Products" << RESET << BLUE << BOLD << "                           ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << RED << "             🌀  0. Exit" << RESET << BLUE << BOLD << "                                        ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╚════════════════════════════════════════════════════════════════╝" << RESET << endl;
 }
-void displayStaffManagementPage(){
-    cout << GREEN << BOLD <<"\t\t\t=======================================\n";
-    cout << GREEN << BOLD << "\t\t\t|      WELCOME TO STAFF MANAGEMENT   |\n";
-    cout << GREEN << BOLD << "\t\t\t======================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. Add new Staff Accounts\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. Update Staff Information\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t3. Delete Staff Accounts\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t4. Show all Staff Information\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+
+void displayStaffManagementPage()
+{
+    cout << BLUE << BOLD << "                                     ▟▀▙═══════════════════════════════════════════════════════════════╗" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << GREEN << "             👥 WELCOME TO STAFF MANAGEMENT 👥" << RESET << BLUE << BOLD << "                  ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╠═══════════════════════════════════════════════════════════════▟▀▙" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             ➕  1. Add new Staff Accounts" << RESET << BLUE << BOLD << "                      ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             ✏️   2. Update Staff Information" << RESET << BLUE << BOLD << "                    ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             ❌  3. Delete Staff Accounts" << RESET << BLUE << BOLD << "                       ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "             📋  4. Show all Staff Information" << RESET << BLUE << BOLD << "                  ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << RED << "             🌀  0. Exit" << RESET << BLUE << BOLD << "                                        ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╚════════════════════════════════════════════════════════════════╝" << RESET << endl;
 }
-void displaySalesSummary(){
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << GREEN << BOLD << "\t\t\t|            SALES SUMMARY       |\n";
-    cout << GREEN << BOLD << "\t\t\t=================================\n";
-    cout << BLUE << BOLD << "\t\t\t1. 1 Day\n" << RESET;
-    cout << BLUE << BOLD << "\t\t\t2. 1 Week\n" << RESET;
-    cout << BLUE  << BOLD << "\t\t\t3. 1 Month\n" << RESET;
-    cout << RED  << BOLD << "\t\t\t0. Exit\n" << RESET;
+
+void displaySalesSummary()
+{
+    cout << BLUE << BOLD << "                                     ▟▀▙═══════════════════════════════════════════════════════════════╗" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << GREEN << "                     📊 SALES SUMMARY 📊" << RESET << BLUE << BOLD << "                        ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╠═══════════════════════════════════════════════════════════════▟▀▙" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      1. 1 Day" << RESET << BLUE << BOLD << "                                     ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      2. 1 Week" << RESET << BLUE << BOLD << "                                    ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      3. 1 Month" << RESET << BLUE << BOLD << "                                   ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << RED << "                     🌀  0. Exit" << RESET << BLUE << BOLD << "                                   ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ╚════════════════════════════════════════════════════════════════╝" << RESET << endl;
 }

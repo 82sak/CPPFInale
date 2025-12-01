@@ -8,7 +8,21 @@
 using namespace std;
 // using namespace tabulate;
 
-void addNewStaffAccount(){
+// Modern color scheme
+#define RESET "\033[0m"
+#define PRIMARY "\033[38;5;147m"   // Soft purple
+#define SECONDARY "\033[38;5;189m" // Light lavender
+#define ACCENT "\033[38;5;213m"    // Pink accent
+#define TEXT "\033[38;5;255m"      // White text
+#define MUTED "\033[38;5;245m"     // Gray muted
+#define SUCCESS "\033[38;5;120m"   // Mint green
+#define ERROR "\033[38;5;210m"     // Coral red
+#define WARNING "\033[38;5;222m"   // Peach
+#define BOLD "\033[1m"
+#define DIM "\033[2m"
+
+void addNewStaffAccount()
+{
     string filename = "../../data/staffInfo.xlsx";
     vector<User> users = readExcelFromStaffInfoToVector(filename);
 
@@ -18,23 +32,39 @@ void addNewStaffAccount(){
     string gender;
     int age;
 
+    system("cls");
+    cout << "\n\n";
+    cout << PRIMARY << "     ╔════════════════════════════════════════════════════════════════╗\n";
+    cout << PRIMARY << "     ║                                                                ║\n";
+    cout << PRIMARY << "     ║  " << BOLD << ACCENT << "               📁  Add New Staff Account 📁" << RESET << PRIMARY << "                   ║\n";
+    cout << PRIMARY << "     ║                                                                ║\n";
+    cout << PRIMARY << "     ╚════════════════════════════════════════════════════════════════╝\n";
+    cout << RESET << "\n";
+
     cin.ignore();
-    cout << "Enter Staff's account Name : ";
+    cout << "     " << ACCENT << "Enter Staff's account Name : " << RESET;
     getline(cin, userName);
-    cout << "Enter Staff's account Password : ";
+    cout << "     " << ACCENT << "Enter Staff's account Password : " << RESET;
     getline(cin, userPass);
-    cout << "Enter Staff Full Name : ";
+    cout << "     " << ACCENT << "Enter Staff Full Name : " << RESET;
     getline(cin, fullName);
-    cout << "Enter Staff Gender : ";
+    cout << "     " << ACCENT << "Enter Staff Gender : " << RESET;
     getline(cin, gender);
-    cout << "Enter Staff Age : ";
+    cout << "     " << ACCENT << "Enter Staff Age : " << RESET;
     cin >> age;
 
     users.emplace_back(userName, userPass, fullName, gender, age);
     writeExcelToStaffInfo(filename, users);
+
+    cout << "\n     " << SUCCESS << BOLD << "✅ Staff account added successfully!\n"
+         << RESET;
+    cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+    cin.ignore();
+    cin.get();
 }
 
-void updateStaffAccount(){
+void updateStaffAccount()
+{
     string filename = "../../data/staffInfo.xlsx";
     vector<User> users = readExcelFromStaffInfoToVector(filename);
 
@@ -43,26 +73,51 @@ void updateStaffAccount(){
     string newUserGender;
     int newUserAge;
 
+    system("cls");
+    cout << "\n\n";
+    cout << PRIMARY << "     ╔════════════════════════════════════════════════════════════════╗\n";
+    cout << PRIMARY << "     ║                                                                ║\n";
+    cout << PRIMARY << "     ║  " << BOLD << ACCENT << "              🪄  Update Staff Account 🪄" << RESET << PRIMARY << "                       ║\n";
+    cout << PRIMARY << "     ║                                                                ║\n";
+    cout << PRIMARY << "     ╚════════════════════════════════════════════════════════════════╝\n";
+    cout << RESET << "\n";
+
     cin.ignore();
-    cout << "Enter Staff's account Name to Update : ";
+    cout << "     " << ACCENT << "Enter Staff's account Name to Update : " << RESET;
     getline(cin, updateName);
 
     bool found = false;
-    for(auto &user : users){
-        if(user.getUserName() == updateName){
+    for (auto &user : users)
+    {
+        if (user.getUserName() == updateName)
+        {
             found = true;
-            cout << "User found!\n";
-            cout << "Name: " << user.getUserFullName() << "\n";
-            cout << "Gender: " << user.getUserGender() << "\n";
-            cout << "Age: " << user.getUserAge() << "\n";
-            cout << "\nPress Enter to continue...";
-            cin.ignore();
+            cout << "\n     " << SUCCESS << BOLD << "User found!\n"
+                 << RESET;
+            cout << "     " << SECONDARY << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                 << RESET;
+            cout << "     " << ACCENT << "Name: " << TEXT << user.getUserFullName() << RESET << "\n";
+            cout << "     " << ACCENT << "Gender: " << TEXT << user.getUserGender() << RESET << "\n";
+            cout << "     " << ACCENT << "Age: " << TEXT << user.getUserAge() << RESET << "\n";
+            cout << "     " << SECONDARY << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                 << RESET;
+            cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+            cin.get();
 
-            cout << "Enter Staff Full Name : ";
+            system("cls");
+            cout << "\n\n";
+            cout << PRIMARY << "     ╔════════════════════════════════════════════════════════════════╗\n";
+            cout << PRIMARY << "     ║                                                                ║\n";
+            cout << PRIMARY << "     ║  " << BOLD << ACCENT << "              🌙 Enter New Details 🌙" << RESET << PRIMARY << "                         ║\n";
+            cout << PRIMARY << "     ║                                                                ║\n";
+            cout << PRIMARY << "     ╚════════════════════════════════════════════════════════════════╝\n";
+            cout << RESET << "\n";
+
+            cout << "     " << ACCENT << "Enter Staff Full Name : " << RESET;
             getline(cin, newUserFullName);
-            cout << "Enter Staff Gender : ";
+            cout << "     " << ACCENT << "Enter Staff Gender : " << RESET;
             getline(cin, newUserGender);
-            cout << "Enter Staff Age : ";
+            cout << "     " << ACCENT << "Enter Staff Age : " << RESET;
             cin >> newUserAge;
 
             user.setUserFullName(newUserFullName);
@@ -70,42 +125,63 @@ void updateStaffAccount(){
             user.setUserAge(newUserAge);
 
             writeExcelToStaffInfo(filename, users);
-            break;  
+            cout << "\n     " << SUCCESS << BOLD << "✅ Staff account updated successfully!\n"
+                 << RESET;
+            cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+            cin.ignore();
+            cin.get();
+            break;
         }
     }
-    if(!found){
-            cout << "User not found!\n";
-            cout << "\nPress Enter to continue...";
-            cin.ignore();
-        }
-    
+    if (!found)
+    {
+        cout << "\n     " << ERROR << BOLD << "User not found!\n"
+             << RESET;
+        cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+        cin.get();
+    }
 }
 
-void deleteStaffAccount(){
+void deleteStaffAccount()
+{
     string filename = "../../data/staffInfo.xlsx";
     vector<User> users = readExcelFromStaffInfoToVector(filename);
 
     string deleteStaff;
 
-    cout << "Enter Staff's Name to Delete : ";
-    cin >> deleteStaff;
+    system("cls");
+    cout << "\n\n";
+    cout << PRIMARY << "     ╔════════════════════════════════════════════════════════════════╗\n";
+    cout << PRIMARY << "     ║                                                                ║\n";
+    cout << PRIMARY << "     ║  " << BOLD << ERROR << "                🌑  Delete Staff Account  🌑" << RESET << PRIMARY << "                  ║\n";
+    cout << PRIMARY << "     ║                                                                ║\n";
+    cout << PRIMARY << "     ╚════════════════════════════════════════════════════════════════╝\n";
+    cout << RESET << "\n";
+
+    cin.ignore();
+    cout << "     " << ACCENT << "Enter Staff's Name to Delete : " << RESET;
+    getline(cin, deleteStaff);
 
     bool found = false;
-    for(auto it = users.begin(); it != users.end(); it++){
-        if(it->getUserName() == deleteStaff ){
+    for (auto it = users.begin(); it != users.end(); it++)
+    {
+        if (it->getUserName() == deleteStaff)
+        {
             found = true;
             users.erase(it);
-            cout << "Staff's account deleted successfully!\n";
-            cin.ignore();
+            cout << "\n     " << SUCCESS << BOLD << "Staff's account deleted successfully!\n"
+                 << RESET;
             break;
         }
     }
-    if(!found){
-        cout << "Staff's account not found!\n";
-        cout << "Press Enter to continue...";
-        cin.ignore();
+    if (!found)
+    {
+        cout << "\n     " << ERROR << BOLD << "Staff's account not found!\n"
+             << RESET;
     }
     writeExcelToStaffInfo(filename, users);
+    cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+    cin.get();
 }
 
 // void showAllStaff(const vector<User> &users){
@@ -118,81 +194,111 @@ void deleteStaffAccount(){
 //     cout << table << endl;
 // };
 
-void showAllStaff(){
+void showAllStaff()
+{
     string filename = "../../data/staffInfo.xlsx";
     vector<User> users = readExcelFromStaffInfoToVector(filename);
 
     system("cls");
-    cout << "========== ALL STAFF ACCOUNTS ==========\n\n";
+    cout << "\n\n";
+    cout << PRIMARY << "     ╔════════════════════════════════════════════════════════════════╗\n";
+    cout << PRIMARY << "     ║                                                                ║ \n";
+    cout << PRIMARY << "     ║   " << BOLD << ACCENT << "               👥  ALL STAFF ACCOUNTS 👥" << RESET << PRIMARY << "                     ║ \n";
+    cout << PRIMARY << "     ║                                                                ║ \n";
+    cout << PRIMARY << "     ╚════════════════════════════════════════════════════════════════╝\n";
+    cout << RESET << "\n";
 
-    if(users.empty()){
-        cout << "No staff accounts found!\n";
-    } else {
+    if (users.empty())
+    {
+        cout << "     " << ERROR << "No staff accounts found!\n"
+             << RESET;
+    }
+    else
+    {
         int count = 1;
-        for(const auto &user : users){
-            cout << "[" << count << "] " << user.getUserFullName() << "\n";
-            cout << "    Username: " << user.getUserName() << "\n";
-            cout << "    Gender: " << user.getUserGender() << "\n";
-            cout << "    Age: " << user.getUserAge() << "\n";
+        for (const auto &user : users)
+        {
+            cout << "     " << SUCCESS << BOLD << "[" << count << "] " << TEXT << user.getUserFullName() << RESET << "\n";
+            cout << "         " << ACCENT << "Username: " << SECONDARY << user.getUserName() << RESET << "\n";
+            cout << "         " << ACCENT << "Gender: " << SECONDARY << user.getUserGender() << RESET << "\n";
+            cout << "         " << ACCENT << "Age: " << SECONDARY << user.getUserAge() << RESET << "\n";
             cout << "\n";
             count++;
         }
-        cout << "Total Staff: " << users.size() << "\n";
+        cout << "     " << WARNING << BOLD << "Total Staff: " << TEXT << users.size() << RESET << "\n";
     }
 
-    cout << "\nPress Enter to continue...";
+    cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
     cin.ignore();
     cin.get();
 }
 
-bool staffAuth() {
+bool staffAuth()
+{
     string filename = "../../data/staffInfo.xlsx";
     vector<User> users = readExcelFromStaffInfoToVector(filename);
-    
+
     int attempts = 3;
-    
-    while(attempts > 0) {
+
+    while (attempts > 0)
+    {
         system("cls");
-        cout << "========== STAFF LOGIN ==========\n";
-        cout << "Attempts remaining: " << attempts << "\n\n";
-        
+        cout << "\n\n";
+        cout << PRIMARY << "     ╔════════════════════════════════════════════════════════════════╗\n";
+        cout << PRIMARY << "     ║                                                                ║ \n";
+        cout << PRIMARY << "     ║   " << BOLD << ACCENT << "                    🪛  STAFF LOGIN 🪛" << RESET << PRIMARY << "                         ║ \n";
+        cout << PRIMARY << "     ║                                                                ║ \n";
+        cout << PRIMARY << "     ╚════════════════════════════════════════════════════════════════╝\n";
+        cout << RESET << "\n";
+        cout << "     " << WARNING << "Attempts remaining: " << (attempts == 1 ? ERROR : WARNING) << attempts << RESET << "\n\n";
+
         string userName;
         string userPass;
-        
+
         cin.ignore();
-        cout << "Enter Username: ";
-        getline(cin, userName);
-        cout << "Enter Password: ";
-        getline(cin, userPass);
-        
+        cout << "     " << ACCENT << "Enter Username: " << RESET;
+        getline(cin, userName) ;
+        cout << "     " << ACCENT << "Enter Password: " << RESET;
+        getline(cin, userPass) ;
+
         // Check if credentials match any staff
         bool found = false;
-        for(const auto &user : users) {
-            if(user.getUserName() == userName && user.getUserPass() == userPass) {
+        for (const auto &user : users)
+        {
+            if (user.getUserName() == userName && user.getUserPass() == userPass)
+            {
                 found = true;
-                cout << "\n Login successful!\n";
-                cout << "Welcome, " << user.getUserFullName() << "!\n";
-                cout << "Press Enter to continue...";
+                cout << "\n     " << SUCCESS << BOLD <<"Login successful!\n"
+                     << RESET;
+                cout << "     " << TEXT << "Welcome🤖, " << ACCENT << user.getUserFullName() << TEXT << "!\n"
+                     << RESET;
+                cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
                 cin.get();
-                return true;  // Login successful
+                return true; // Login successful
             }
         }
-        
+
         // If not found
-        if(!found) {
+        if (!found)
+        {
             attempts--;
-            if(attempts > 0) {
-                cout << "\n Invalid username or password!\n";
-                cout << "Attempts remaining: " << attempts << "\n";
-                cout << "Press Enter to try again...";
+            if (attempts > 0)
+            {
+                cout << "\n     " << ERROR << BOLD << "Invalid username or password!\n"
+                     << RESET;
+                cout << "     " << WARNING << "Attempts remaining: " << (attempts == 1 ? ERROR : WARNING) << attempts << RESET << "\n";
+                cout << "\n     " << MUTED << DIM << "Press Enter to try again..." << RESET;
                 cin.get();
-            } else {
-                cout << "\n✗ Login failed! No attempts remaining.\n";
-                cout << "Press Enter to return...";
+            }
+            else
+            {
+                cout << "\n     " << ERROR << BOLD << "✗ Login failed! No attempts remaining.\n"
+                     << RESET;
+                cout << "\n     " << MUTED << DIM << "Press Enter to return..." << RESET;
                 cin.get();
             }
         }
     }
-    
-    return false;  // Login failed after 3 attempts
+
+    return false; // Login failed after 3 attempts
 }

@@ -3,66 +3,120 @@
 #include "models/excelUtils.hpp"
 #include <iostream>
 #include <vector>
+#include <windows.h>
+#define _HAS_STD_BYTE 0
 
 using namespace std;
 
-void addNewProduct(){
+// Color definitions
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define CYAN "\033[36m"
+#define MAGENTA "\033[35m"
+#define BOLD "\033[1m"
+
+void addNewProduct()
+{
     string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
+    vector<Product> products = readExcelFromMenuInfoToVector(filename);
 
     string itemName;
-    float  itemPrice;
-    int   itemAmount;
+    float itemPrice;
+    int itemAmount;
     string itemCategory;
 
+    system("cls");
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                     🛍️  ADD NEW PRODUCT  🛍️                      ║\n";
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
+    cout << endl;
+
     cin.ignore();
-    cout << "Enter Product Name : ";
+    cout << RED << "Enter Product Name : " << RESET;
     getline(cin, itemName);
-    cout << "Enter Product Price : ";
+    cout << RED << "Enter Product Price : " << RESET;
     cin >> itemPrice;
-    cout << "Enter Product Amount : ";
+    cout << RED << "Enter Product Amount : " << RESET;
     cin >> itemAmount;
-    cout << "Enter Product Category : ";
-    cin >> itemCategory;
+    cin.ignore();
+    cout << RED << "Enter Product Category : " << RESET;
+    getline(cin, itemCategory);
 
     products.emplace_back(itemName, itemPrice, itemAmount, itemCategory);
     writeExcelToMenuInfo(filename, products);
+
+    cout << GREEN << BOLD << "\n✅ Product added successfully!\n"
+         << RESET;
+    cout << YELLOW << "Press Enter to continue..." << RESET;
+    cin.get();
 }
 
-void updateProduct(){
+void updateProduct()
+{
     string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
+    vector<Product> products = readExcelFromMenuInfoToVector(filename);
 
     string updateName;
     string newitemName;
-    float  newItemPrice;
-    int   newItemAmount;
+    float newItemPrice;
+    int newItemAmount;
     string newItemCategory;
 
+    system("cls");
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                     📦  UPDATE PRODUCT 📦                      ║\n";
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
+    cout << endl;
+
     cin.ignore();
-    cout << "Enter Product Name to Update : ";
+    cout << RED << "Enter Product Name to Update : " << RESET;
     getline(cin, updateName);
 
     bool found = false;
-    for(auto &product : products){
-        if(product.getItemName() == updateName){
+    for (auto &product : products)
+    {
+        if (product.getItemName() == updateName)
+        {
             found = true;
-            cout << "Product found!\n";
-            cout << "Product Name : " << product.getItemName() << endl;
-            cout << "Product Price : " << product.getItemPrice() << endl;
-            cout << "Product Amount : " << product.getItemAmount() << endl;
-            cout << "Product Category : " << product.getItemCategory() << endl;
-            cout << "Press Enter to continue...";
-            cin.ignore();
+            cout << GREEN << BOLD << "\nProduct found!\n"
+                 << RESET;
+            cout << CYAN << "Product Name : " << RESET << YELLOW << product.getItemName() << RESET << endl;
+            cout << CYAN << "Product Price : " << RESET << YELLOW << product.getItemPrice() << RESET << endl;
+            cout << CYAN << "Product Amount : " << RESET << YELLOW << product.getItemAmount() << RESET << endl;
+            cout << CYAN << "Product Category : " << RESET << YELLOW << product.getItemCategory() << RESET << endl;
+            cout << YELLOW << "Press Enter to continue..." << RESET;
+            cin.get();
 
-            cout << "Enter Product Name : ";
+            system("cls");
+            cout << BLUE << BOLD
+                 << "╔════════════════════════════════════════════════════════════════╗\n";
+            cout << BLUE << BOLD
+                 << "║                🔖  ENTER NEW DETAILS  🔖                      ║\n";
+            cout << BLUE << BOLD
+                 << "╚════════════════════════════════════════════════════════════════╝\n"
+                 << RESET;
+            cout << endl;
+
+            cout << RED << "Enter Product Name : " << RESET;
             getline(cin, newitemName);
-            cout << "Enter Product Price : ";
+            cout << RED << "Enter Product Price : " << RESET;
             cin >> newItemPrice;
-            cout << "Enter Product Amount : ";
+            cout << RED << "Enter Product Amount : " << RESET;
             cin >> newItemAmount;
-            cout << "Enter Product Category : ";
-            cin >> newItemCategory;
+            cin.ignore();
+            cout << RED << "Enter Product Category : " << RESET;
+            getline(cin, newItemCategory);
 
             product.setItemName(newitemName);
             product.setItemPrice(newItemPrice);
@@ -70,106 +124,160 @@ void updateProduct(){
             product.setItemCategory(newItemCategory);
 
             writeExcelToMenuInfo(filename, products);
+            cout << GREEN << BOLD << "\n✅ Product updated successfully!\n"
+                 << RESET;
+            cout << YELLOW << "Press Enter to continue..." << RESET;
+            cin.get();
             break;
         }
     }
-    if(!found){
-        cout << "Product not found!\n";
-        cout << "\nPress Enter to continue...";
-        cin.ignore();
+    if (!found)
+    {
+        cout << RED << BOLD << "\nProduct not found!\n"
+             << RESET;
+        cout << YELLOW << "\nPress Enter to continue..." << RESET;
         cin.get();
     }
-    
 }
-void deleteProduct(){
+
+void deleteProduct()
+{
     string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
+    vector<Product> products = readExcelFromMenuInfoToVector(filename);
 
     string deleteProductInfo;
 
+    system("cls");
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                     🎨  DELETE PRODUCT 🎨                      ║\n";
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
+    cout << endl;
+
     cin.ignore();
-    cout << "Enter Product Name to Delete : ";
+    cout << RED << "Enter Product Name to Delete : " << RESET;
     getline(cin, deleteProductInfo);
 
     bool found = false;
-    for(auto it = products.begin(); it != products.end(); it++){
-        if(it->getItemName() == deleteProductInfo){
+    for (auto it = products.begin(); it != products.end(); it++)
+    {
+        if (it->getItemName() == deleteProductInfo)
+        {
             found = true;
             products.erase(it);
-            cout << "Product deleted successfully!\n";
-            cin.ignore();
+            cout << GREEN << BOLD << "\nProduct deleted successfully!\n"
+                 << RESET;
             break;
         }
     }
-    if(!found){
-        cout << "Product not found!\n";
-        cout << "\nPress Enter to continue...";
-        cin.ignore();
-        cin.get();
+    if (!found)
+    {
+        cout << RED << BOLD << "\nProduct not found!\n"
+             << RESET;
     }
     writeExcelToMenuInfo(filename, products);
+    cout << YELLOW << "\nPress Enter to continue..." << RESET;
+    cin.get();
 }
-void showAllProduct(){
+
+void showAllProduct()
+{
     string filename = "../../data/productInfo.xlsx";
-    vector<Product> products  = readExcelFromMenuInfoToVector(filename);
+    vector<Product> products = readExcelFromMenuInfoToVector(filename);
 
     system("cls");
-    cout << "========== ALL Product ==========\n\n";
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                       🧃 ALL PRODUCT 🧃                        ║\n";
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
 
-    if(products.empty()){
-        cout << "No product found!";
-    }else{
+    if (products.empty())
+    {
+        cout << RED << "No product found!" << RESET << endl;
+    }
+    else
+    {
         int count = 1;
-        for(const auto &product : products){
-            cout << "[" << count << "]" <<"    Product Name : " << product.getItemName() << endl;
-            cout << "    Product Price : " << product.getItemPrice() << endl;
-            cout << "    Product Amount : " << product.getItemAmount() << endl;
-            cout << "    Product Category : " << product.getItemCategory() << endl;
+        for (const auto &product : products)
+        {
+            cout << MAGENTA << BOLD << "[" << count << "]" << RESET;
+            cout << CYAN << "    Product Name : " << RESET << YELLOW << product.getItemName() << RESET << endl;
+            cout << CYAN << "    Product Price : " << RESET << GREEN << product.getItemPrice() << RESET << endl;
+            cout << CYAN << "    Product Amount : " << RESET << MAGENTA << product.getItemAmount() << RESET << endl;
+            cout << CYAN << "    Product Category : " << RESET << BLUE << product.getItemCategory() << RESET << endl;
+            cout << endl;
             count++;
         }
-        cout << "Total Product : " << products.size() << endl;
+        cout << BLUE << BOLD
+             << "══════════════════════════════════════════════════════════════════\n"
+             << RESET;
+        cout << GREEN << BOLD << "Total Product : " << products.size() << RESET << endl;
     }
-    cout << "\nPress Enter to continue...";
+    cout << BLUE << BOLD
+         << "══════════════════════════════════════════════════════════════════\n"
+         << RESET;
+    cout << YELLOW << "\nPress Enter to continue..." << RESET;
     cin.ignore();
     cin.get();
 }
 
-bool adminAuth(){
+bool adminAuth()
+{
     int attempts = 3;
-    
-    while(attempts > 0) {
+
+    while (attempts > 0)
+    {
         system("cls");
-        cout << "========== STAFF LOGIN ==========\n";
-        cout << "Attempts remaining: " << attempts << "\n\n";
-        
+        cout << BLUE << BOLD
+             << "╔════════════════════════════════════════════════════════════════╗\n";
+        cout << BLUE << BOLD
+             << "║                   🖋️  STAFF LOGIN 🖋️                             ║\n";
+        cout << BLUE << BOLD
+             << "╚════════════════════════════════════════════════════════════════╝\n"
+             << RESET;
+        cout << YELLOW << "Attempts remaining: " << (attempts == 1 ? RED : YELLOW) << attempts << RESET << "\n\n";
+
         string userName;
         string userPass;
-        
+
         cin.ignore();
-        cout << "Enter Username: ";
+        cout << RED << "Enter Username: " << RESET;
         getline(cin, userName);
-        cout << "Enter Password: ";
+        cout << RED << "Enter Password: " << RESET;
         getline(cin, userPass);
-        
-        // Check if credentials match any staff
+
         bool found = false;
-        if(userName == "admin" && userPass == "password"){
+        if (userName == "admin" && userPass == "password")
+        {
             found = true;
-            cout << "\n Login successful!\n";
-                cout << "Press Enter to continue...";
-                cin.get();
-                return true;
+            cout << GREEN << BOLD << "\nLogin successful!\n"
+                 << RESET;
+            cout << YELLOW << "Press Enter to continue..." << RESET;
+            cin.get();
+            return true;
         }
-        if(!found) {
+        if (!found)
+        {
             attempts--;
-            if(attempts > 0) {
-                cout << "\n Invalid username or password!\n";
-                cout << "Attempts remaining: " << attempts << "\n";
-                cout << "Press Enter to try again...";
+            if (attempts > 0)
+            {
+                cout << RED << BOLD << "\n Invalid username or password!\n"
+                     << RESET;
+                cout << YELLOW << "Attempts remaining: " << (attempts == 1 ? RED : YELLOW) << attempts << RESET << "\n";
+                cout << YELLOW << "Press Enter to try again..." << RESET;
                 cin.get();
-            } else {
-                cout << "\n Login failed! No attempts remaining.\n";
-                cout << "Press Enter to return...";
+            }
+            else
+            {
+                cout << RED << BOLD << "\n Login failed! No attempts remaining.\n"
+                     << RESET;
+                cout << YELLOW << "Press Enter to return..." << RESET;
                 cin.get();
             }
         }
@@ -177,24 +285,84 @@ bool adminAuth(){
     return false;
 }
 
-void showSummaryOneDay(){
+void showSummaryOneDay()
+{
     string filename = "../../data/orderInfo.xlsx";
-    vector<Order> orders  = readExcelFromOrderInfoToVector(filename);
-    
-    system("cls");
-    cout << "===== 1 day =====\n";
+    vector<Order> orders = readExcelFromOrderInfoToVector(filename);
 
-    
-    for(const auto &order : orders){
-        cout << order.getItemOrderTimestamp();
-        if(order.getItemOrderTimestamp() == "2025-11-27"){
-            cout << order.getItemOrderTimestamp();
-            break;
+    system("cls");
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                       🌻 1 day 🌻                              ║\n";
+    cout << BLUE << BOLD
+         << "╠════════════════════════════════════════════════════════════════╣\n"
+         << RESET;
+
+    bool found = false;
+    for (const auto &order : orders)
+    {
+        if (order.getItemOrderTimestamp() == "2025-11-27")
+        {
+            cout << CYAN << order.getItemOrderTimestamp() << RESET << endl;
+            found = true;
         }
     }
-    cout << "\nPress Enter to continue...";
+
+    if (!found)
+    {
+         cout << BLUE << BOLD << "║  "
+              << RED << "           No orders found for this date."
+              << BLUE << BOLD << "                     ║"
+              << RESET << "\n";
+    }
+
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
+    cout << YELLOW << "\nPress Enter to continue..." << RESET;
     cin.ignore();
     cin.get();
 }
-void showSummaryOneWeek();
-void showSummaryOneMonth();
+
+void showSummaryOneWeek()
+{
+    system("cls");
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                          🌳 1 week 🌳                          ║\n";
+    cout << BLUE << BOLD
+         << "╠════════════════════════════════════════════════════════════════╣\n";
+    cout << BLUE << BOLD << "║  "
+         << MAGENTA << BOLD << "                        Coming Soon!"
+         << BLUE << BOLD << "                          ║"
+         << RESET << "\n";
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
+    cout << YELLOW << "\nPress Enter to continue..." << RESET;
+    cin.ignore();
+    cin.get();
+}
+
+void showSummaryOneMonth()
+{
+    system("cls");
+    cout << BLUE << BOLD
+         << "╔════════════════════════════════════════════════════════════════╗\n";
+    cout << BLUE << BOLD
+         << "║                            🌈 1 month 🌈                       ║\n";
+    cout << BLUE << BOLD
+         << "╠════════════════════════════════════════════════════════════════╣\n";
+    cout << BLUE << BOLD << "║  "
+         << MAGENTA << BOLD << "                          Coming Soon!"
+         << BLUE << BOLD << "                        ║"
+         << RESET << "\n";
+    cout << BLUE << BOLD
+         << "╚════════════════════════════════════════════════════════════════╝\n"
+         << RESET;
+    cout << YELLOW << "\nPress Enter to continue..." << RESET;
+    cin.ignore();
+    cin.get();
+}
