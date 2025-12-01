@@ -285,6 +285,7 @@ void displayCart()
      cout << endl;
 
      float price;
+     float totalTax = 0;
      float total = 0;
      bool cond = true;
      int padding;
@@ -319,32 +320,47 @@ void displayCart()
                string priceStr = to_string(orderPrice[i]);
                string amountStr = to_string(orderAmount[i]);
                string totalStr = to_string(orderPrice[i] * orderAmount[i]);
-               padding = 54 - priceStr.length() - amountStr.length() - totalStr.length();
+               padding = 55 - priceStr.length() - amountStr.length() - totalStr.length();
                for (int j = 0; j < padding; j++)
                     cout << " ";
-               cout << YELLOW << "        ║\n"
+               cout << YELLOW << "         ║\n"
                     << RESET;
 
                cout << "                                      " << YELLOW << BOLD
                     << "╚════════════════════════════════════════════════════════════════╝\n"
                     << RESET;
                price = orderPrice[i] * orderAmount[i];
+               float tax = (orderPrice[i] /10) * orderAmount[i];
+               totalTax += tax;
                total += price;
           }
 
           cout << endl;
           cout << "                                      " << CYAN << BOLD
                << "╔════════════════════════════════════════════════════════════════╗\n";
-          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Total: $" << total;
-          padding = 54 - to_string(total).length();
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Sub-Total: $" << total;  
+          padding = 53 - to_string(total).length();
           for (int j = 0; j < padding; j++)
                cout << " ";
-          cout << CYAN << "   ║\n"
+          cout << CYAN << "  ║\n"
+               << RESET;
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Tax: $" << totalTax;
+          padding = 57 - to_string(total).length();
+          for (int j = 0; j < padding; j++)
+               cout << " ";
+          cout << CYAN << "  ║\n"
+               << RESET;
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Total: $" << totalTax + total;
+          padding = 55 - to_string(total).length();
+          for (int j = 0; j < padding; j++)
+               cout << " ";
+          cout << CYAN << "  ║\n"
                << RESET;
           cout << "                                      " << CYAN << BOLD
                << "╚════════════════════════════════════════════════════════════════╝\n"
                << RESET;
           cout << endl;
+          cout << to_string(total).length() << endl;
      }
 
      while (cond)
