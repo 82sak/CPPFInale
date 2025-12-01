@@ -3,6 +3,7 @@
 #include "models/staffAccount.hpp"
 #include <iostream>
 #include <vector>
+#include <conio.h>
 // #include <tabulate/table.hpp>
 
 using namespace std;
@@ -232,6 +233,31 @@ void showAllStaff()
     cin.ignore();
     cin.get();
 }
+inline string maskingPassword(){
+    string password = "";
+    char ch;
+    
+    while (true) {
+        ch = _getch(); 
+        
+        if (ch == 13) { 
+            cout << endl;
+            break;
+        }
+        else if (ch == 8) {
+            if (!password.empty()) {
+                password.pop_back(); 
+                cout << "\b \b"; 
+            }
+        }
+        else {
+            password += ch;  
+            cout << '*'; 
+        }
+    }
+    
+    return password;
+}
 
 bool staffAuth()
 {
@@ -259,7 +285,7 @@ bool staffAuth()
         cout << "     " << ACCENT << "Enter Username: " << RESET;
         getline(cin, userName) ;
         cout << "     " << ACCENT << "Enter Password: " << RESET;
-        getline(cin, userPass) ;
+        userPass = maskingPassword();
 
         // Check if credentials match any staff
         bool found = false;

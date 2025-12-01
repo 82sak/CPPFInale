@@ -55,9 +55,9 @@ void displaySalesSummary()
     cout << BLUE << BOLD << "                                     ▟▀▙═══════════════════════════════════════════════════════════════╗" << RESET << endl;
     cout << BLUE << BOLD << "                                      ║" << GREEN << "                     📊 SALES SUMMARY 📊" << RESET << BLUE << BOLD << "                        ║" << RESET << endl;
     cout << BLUE << BOLD << "                                      ╠═══════════════════════════════════════════════════════════════▟▀▙" << RESET << endl;
-    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      1. 1 Day" << RESET << BLUE << BOLD << "                                     ║" << RESET << endl;
-    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      2. 1 Week" << RESET << BLUE << BOLD << "                                    ║" << RESET << endl;
-    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      3. 1 Month" << RESET << BLUE << BOLD << "                                   ║" << RESET << endl;
-    cout << BLUE << BOLD << "                                      ║" << RED << "                     🌀  0. Exit" << RESET << BLUE << BOLD << "                                   ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      1. 24-Hours Report" << RESET << BLUE << BOLD << "                        ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      2. 7-Day Report" << RESET << BLUE << BOLD << "                           ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << YELLOW << "                      3. 1-Month Report" << RESET << BLUE << BOLD << "                         ║" << RESET << endl;
+    cout << BLUE << BOLD << "                                      ║" << RED << "                     🌀  0. Exit" << RESET << BLUE << BOLD << "                                ║" << RESET << endl;
     cout << BLUE << BOLD << "                                      ╚════════════════════════════════════════════════════════════════╝" << RESET << endl;
 }

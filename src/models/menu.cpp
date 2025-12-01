@@ -27,6 +27,8 @@ using namespace std;
 #define ACCENT YELLOW
 #define TEXT RESET
 #define ERROR RED
+#define MUTED "\033[38;5;245m"
+#define DIM "\033[2m"
 
 void displayMenuPage()
 {
@@ -97,7 +99,7 @@ void displayFood()
                          << RESET;
 
                     cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << product.getItemPrice();
-                    padding = 53 - to_string(product.getItemPrice()).length();
+                    padding = 52 - to_string(product.getItemPrice()).length();
                     for (int i = 0; i < padding; i++)
                          cout << " ";
                     cout << YELLOW << "    ║\n"
@@ -135,7 +137,7 @@ void displayFood()
                cin >> amount;
                if (amount > product.getItemAmount())
                {
-                    cout << "                                      " << RED << "\n⚠️  Sorry, only " << product.getItemAmount() << " available\n"
+                    cout << "\n                                      " << RED << "⚠️  Sorry, only " << product.getItemAmount() << " available"
                          << RESET;
                     cin.ignore();
                     cin.get();
@@ -146,14 +148,17 @@ void displayFood()
                     orderPrice.push_back(product.getItemPrice());
                     orderAmount.push_back(amount);
                     orderCategory.push_back(food);
-                    cout << "                                      " << GREEN << "\n✓ Added to cart successfully!\n"
+                    cout << "\n                                      " << GREEN << "✓ Added to cart successfully!\n"
                          << RESET;
+                    cout << "     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+                    cin.ignore();
+                    cin.get();
                }
           }
      }
      if (!found)
      {
-          cout << "                                      " << RED << "\n⚠️  This item doesn't exist in our restaurant\n"
+          cout << "\n                                      " << RED << "⚠️  This item doesn't exist in our restaurant"
                << RESET;
           cin.ignore();
           cin.get();
@@ -198,7 +203,7 @@ void displayDrink()
                          << RESET;
 
                     cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << product.getItemPrice();
-                    padding = 52 - to_string(product.getItemPrice()).length();
+                    padding = 51 - to_string(product.getItemPrice()).length();
                     for (int i = 0; i < padding; i++)
                          cout << " ";
                     cout << YELLOW << "     ║\n"
@@ -236,7 +241,7 @@ void displayDrink()
                cin >> amount;
                if (amount > product.getItemAmount())
                {
-                    cout << "                                      " << RED << "\n⚠️  Sorry, only " << product.getItemAmount() << " available\n"
+                    cout << "\n                                      " << RED << "⚠️  Sorry, only " << product.getItemAmount() << " available"
                          << RESET;
                     cin.ignore();
                     cin.get();
@@ -247,21 +252,23 @@ void displayDrink()
                     orderPrice.push_back(product.getItemPrice());
                     orderAmount.push_back(amount);
                     orderCategory.push_back(drink);
-                    cout << "                                      " << GREEN << "\n✓ Added to cart successfully!\n"
+                    cout << "\n                                      " << GREEN << "✓ Added to cart successfully!\n"
                          << RESET;
+                    cout << "     " << MUTED << DIM << "Press Enter to continue..." << RESET;
+                    cin.ignore();
+                    cin.get();
                }
           }
      }
      if (!found)
      {
-          cout << "                                      " << RED << "\n⚠️  This item doesn't exist in our restaurant\n"
+          cout << "\n                                      " << RED << "⚠️  This item doesn't exist in our restaurant"
                << RESET;
           cin.ignore();
-          cin.get();
      }
 }
 
-string getCurrentTimestamp()
+inline string getCurrentTimestamp()
 {
      auto now = chrono::system_clock::now();
      time_t now_time = chrono::system_clock::to_time_t(now);
@@ -269,6 +276,12 @@ string getCurrentTimestamp()
      stringstream ss;
      ss << put_time(localtime(&now_time), "%Y-%m-%d %H-%M-%S");
      return ss.str();
+}
+
+string formatPrice(float price) {
+    stringstream ss;
+    ss << fixed << setprecision(2) << price;
+    return ss.str();
 }
 
 void displayCart()
@@ -307,60 +320,61 @@ void displayCart()
      {
           for (int i = 0; i < orderName.size(); i++)
           {
-               cout << "                                      " << YELLOW << BOLD
-                    << "╔════════════════════════════════════════════════════════════════╗\n";
-               cout << "                                      " << YELLOW << BOLD << "║ " << CYAN << orderName[i];
-               int padding = 63 - orderName[i].length();
-               for (int j = 0; j < padding; j++)
-                    cout << " ";
-               cout << YELLOW << "║\n"
-                    << RESET;
+          cout << "                                      " << YELLOW << BOLD
+               << "╔════════════════════════════════════════════════════════════════╗\n";
+          
+          // Item name line - LEFT aligned, fixed width
+          cout << "                                      " << YELLOW << BOLD << "║ " << CYAN;
+          cout << left << setw(62) << orderName[i];
+          cout << YELLOW << " ║\n" << RESET;
 
-               cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 $" << orderPrice[i] << RESET << YELLOW << " × " << CYAN << orderAmount[i] << RESET << YELLOW << " = " << GREEN << "$" << (orderPrice[i] * orderAmount[i]);
-               string priceStr = to_string(orderPrice[i]);
-               string amountStr = to_string(orderAmount[i]);
-               string totalStr = to_string(orderPrice[i] * orderAmount[i]);
-               padding = 55 - priceStr.length() - amountStr.length() - totalStr.length();
-               for (int j = 0; j < padding; j++)
-                    cout << " ";
-               cout << YELLOW << "         ║\n"
-                    << RESET;
+          // Price calculation line - RIGHT aligned for numbers
+          stringstream priceLine;
+          priceLine << "$ $" << formatPrice(orderPrice[i]) << " × " << orderAmount[i] 
+                    << " = $" << formatPrice(orderPrice[i] * orderAmount[i]);
+          
+          cout << "                                      " << YELLOW << BOLD << "║ " << GREEN;
+          cout << left << setw(62) << priceLine.str();
+          cout << YELLOW << "  ║\n" << RESET;
 
-               cout << "                                      " << YELLOW << BOLD
-                    << "╚════════════════════════════════════════════════════════════════╝\n"
-                    << RESET;
-               price = orderPrice[i] * orderAmount[i];
-               float tax = (orderPrice[i] /10) * orderAmount[i];
-               totalTax += tax;
-               total += price;
+          cout << "                                      " << YELLOW << BOLD
+               << "╚════════════════════════════════════════════════════════════════╝\n"
+               << RESET;
+          
+          price = orderPrice[i] * orderAmount[i];
+          float tax = (orderPrice[i] / 10) * orderAmount[i];
+          totalTax += tax;
+          total += price;
           }
 
           cout << endl;
           cout << "                                      " << CYAN << BOLD
                << "╔════════════════════════════════════════════════════════════════╗\n";
-          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Sub-Total: $" << total;  
-          padding = 53 - to_string(total).length();
-          for (int j = 0; j < padding; j++)
-               cout << " ";
-          cout << CYAN << "  ║\n"
-               << RESET;
-          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Tax: $" << totalTax;
-          padding = 57 - to_string(total).length();
-          for (int j = 0; j < padding; j++)
-               cout << " ";
-          cout << CYAN << "  ║\n"
-               << RESET;
-          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD << "💰 Total: $" << totalTax + total;
-          padding = 55 - to_string(total).length();
-          for (int j = 0; j < padding; j++)
-               cout << " ";
-          cout << CYAN << "  ║\n"
-               << RESET;
+
+          // Sub-Total line - RIGHT aligned
+          stringstream subTotalLine;
+          subTotalLine << "Sub-Total: $" << formatPrice(total);
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD;
+          cout << left << setw(62) << subTotalLine.str();
+          cout << CYAN << " ║\n" << RESET;
+
+          // Tax line - RIGHT aligned
+          stringstream taxLine;
+          taxLine << "Tax: $" << formatPrice(totalTax);
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD;
+          cout << left << setw(62) << taxLine.str();
+          cout << CYAN << " ║\n" << RESET;
+
+          // Total line - RIGHT aligned
+          stringstream totalLine;
+          totalLine << "Total: $" << formatPrice(totalTax + total);
+          cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD;
+          cout << left << setw(62) << totalLine.str();
+          cout << CYAN << " ║\n" << RESET;
+
           cout << "                                      " << CYAN << BOLD
                << "╚════════════════════════════════════════════════════════════════╝\n"
                << RESET;
-          cout << endl;
-          cout << to_string(total).length() << endl;
      }
 
      while (cond)
@@ -403,16 +417,17 @@ void displayCart()
                          orderPrice.erase(orderPrice.begin() + i);
                          orderAmount.erase(orderAmount.begin() + i);
                          orderCategory.erase(orderCategory.begin() + i);
-                         cout << "                                      " << GREEN << "\n✓ Item removed from cart successfully!\n"
-                              << RESET;
+                         cout << "\n                                      " << GREEN << "✓ Item removed from cart successfully!\n"
+                              << RESET;    
                          break;
                     }
                }
                if (!found)
                {
-                    cout << "                                      " << RED << "\n⚠️  Item not found\n"
+                    cout << "\n                                      " << RED << "⚠️  Item not found\n"
                          << RESET;
                }
+               cond = false;
                break;
           }
           case 2:
@@ -451,8 +466,8 @@ void displayCart()
                     << "╔════════════════════════════════════════════════════════════════╗\n";
                cout << "                                      " << GREEN << BOLD
                     << "║               ✓ Order placed successfully! 🎉                  ║\n";
-               cout << "                                      " << GREEN << BOLD << "║" << CYAN << "📅 Order time:" << timestamp;
-               int padding = 50 - timestamp.length();
+               cout << "                                      " << GREEN << BOLD << "║" << CYAN << "               📅 Order time:" << timestamp;
+               int padding = 35 - timestamp.length();
                for (int j = 0; j < padding; j++)
                     cout << " ";
                cout << GREEN << "║\n"
@@ -475,7 +490,7 @@ void displayCart()
      }
 
      cout << "\n";
-     cout << "                                      " << GRAY << "Press Enter to continue..." << RESET;
+     cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
      cin.ignore();
      cin.get();
 }
