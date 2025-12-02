@@ -98,7 +98,7 @@ void displayFood()
                     cout << YELLOW << " ║\n"
                          << RESET;
 
-                    cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << product.getItemPrice();
+                    cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << fixed << setprecision(2) << product.getItemPrice();
                     padding = 52 - to_string(product.getItemPrice()).length();
                     for (int i = 0; i < padding; i++)
                          cout << " ";
@@ -202,7 +202,7 @@ void displayDrink()
                     cout << YELLOW << " ║\n"
                          << RESET;
 
-                    cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << product.getItemPrice();
+                    cout << "                                      " << YELLOW << BOLD << "║ " << GREEN << "💲 Price: $" << fixed << setprecision(2) << product.getItemPrice();
                     padding = 51 - to_string(product.getItemPrice()).length();
                     for (int i = 0; i < padding; i++)
                          cout << " ";

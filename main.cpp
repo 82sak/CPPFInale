@@ -14,15 +14,14 @@
 
 using namespace std;
 
-// Modern color scheme
 #define RESET "\033[0m"
 #define PRIMARY "\033[38;5;147m"   // Soft purple
 #define SECONDARY "\033[38;5;189m" // Light lavender
 #define ACCENT "\033[38;5;213m"    // Pink accent
-#define TEXT "\033[38;5;255m"      // White text
+#define TEXT_COLOR "\033[38;5;255m"      // White TEXT_COLOR
 #define MUTED "\033[38;5;245m"     // Gray muted
 #define SUCCESS "\033[38;5;120m"   // Mint green
-#define ERROR "\033[38;5;210m"     // Coral red
+#define ERROR_COLOR "\033[38;5;210m"     // Coral red
 #define WARNING "\033[38;5;222m"   // Peach
 #define BOLD "\033[1m"
 #define DIM "\033[2m"
@@ -62,11 +61,11 @@ int main()
         case 1:
         {
             // adminAuth
-            // addmin function
             if (adminAuth())
             {
                 while (true)
                 {
+                    // addmin function
                     system("cls");
 
                     int option;
@@ -149,8 +148,8 @@ int main()
                                 cout << "\n";
                                 cout << PRIMARY << "                                      ╭────────────────────────────────────────────────────────────────╮\n";
                                 cout << PRIMARY << "                                      │                                                                │\n";
-                                cout << PRIMARY << "                                      │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                 │\n";
-                                cout << PRIMARY << "                                      │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                                │\n";
+                                cout << PRIMARY << "                                      │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                               │\n";
+                                cout << PRIMARY << "                                      │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                              │\n";
                                 cout << PRIMARY << "                                      │                                                                │\n";
                                 cout << PRIMARY << "                                      ╰────────────────────────────────────────────────────────────────╯\n";
                                 cout << RESET;
@@ -217,7 +216,7 @@ int main()
                                 cout << "\n";
                                 cout << PRIMARY << "                                      ╭──────────────────────────────────────────────────────────────────╮\n";
                                 cout << PRIMARY << "                                      │                                                                  │\n";
-                                cout << PRIMARY << "                                      │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                 │\n";
+                                cout << PRIMARY << "                                      │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                 │\n";
                                 cout << PRIMARY << "                                      │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                                │\n";
                                 cout << PRIMARY << "                                      │                                                                  │\n";
                                 cout << PRIMARY << "                                      ╰──────────────────────────────────────────────────────────────────╯\n";
@@ -258,13 +257,13 @@ int main()
                             {
                             case 1:
                             {
-                                // 1d
+                                // 24-hour report
                                 showSummaryOneDay();
                                 break;
                             }
                             case 2:
                             {
-                                // 1week
+                                // 1week report
                                 showSummaryOneWeek();
                                 break;
                             }
@@ -278,7 +277,7 @@ int main()
                                 cout << "\n";
                                 cout << PRIMARY << "                              ╭─────────────────────────────────────────────────────────────────╮\n";
                                 cout << PRIMARY << "                              │                                                                 │\n";
-                                cout << PRIMARY << "                              │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                             │\n";
+                                cout << PRIMARY << "                              │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                             │\n";
                                 cout << PRIMARY << "                              │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                            │\n";
                                 cout << PRIMARY << "                              │                                                                 │\n";
                                 cout << PRIMARY << "                              ╰─────────────────────────────────────────────────────────────────╯\n";
@@ -295,7 +294,7 @@ int main()
                         cout << "\n";
                         cout << PRIMARY << "                                      ╭────────────────────────────────────────────────────────────────╮\n";
                         cout << PRIMARY << "                                      │                                                                │\n";
-                        cout << PRIMARY << "                                      │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                               │\n";
+                        cout << PRIMARY << "                                      │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                               │\n";
                         cout << PRIMARY << "                                      │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                              │\n";
                         cout << PRIMARY << "                                      │                                                                │\n";
                         cout << PRIMARY << "                                      ╰────────────────────────────────────────────────────────────────╯\n";
@@ -356,7 +355,7 @@ int main()
                         cout << "\n";
                         cout << PRIMARY << "                                      ╭─────────────────────────────────────────────────────────────────╮\n";
                         cout << PRIMARY << "                                      │                                                                 │\n";
-                        cout << PRIMARY << "                                      │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                │\n";
+                        cout << PRIMARY << "                                      │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                │\n";
                         cout << PRIMARY << "                                      │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                               │\n";
                         cout << PRIMARY << "                                      │                                                                 │\n";
                         cout << PRIMARY << "                                      ╰─────────────────────────────────────────────────────────────────╯\n";
@@ -441,7 +440,7 @@ int main()
                             cout << "\n";
                             cout << PRIMARY << "                                     ╭────────────────────────────────────────────────────────────────╮\n";
                             cout << PRIMARY << "                                     │                                                                │\n";
-                            cout << PRIMARY << "                                     │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                               │\n";
+                            cout << PRIMARY << "                                     │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                               │\n";
                             cout << PRIMARY << "                                     │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                              │\n";
                             cout << PRIMARY << "                                     │                                                                │\n";
                             cout << PRIMARY << "                                     ╰────────────────────────────────────────────────────────────────╯\n";
@@ -464,7 +463,7 @@ int main()
                     cout << "\n";
                     cout << PRIMARY << "                                      ╭─────────────────────────────────────────────────────────────────╮\n";
                     cout << PRIMARY << "                                      │                                                                 │\n";
-                    cout << PRIMARY << "                                      │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                │\n";
+                    cout << PRIMARY << "                                      │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                                │\n";
                     cout << PRIMARY << "                                      │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                               │\n";
                     cout << PRIMARY << "                                      │                                                                 │\n";
                     cout << PRIMARY << "                                      ╰─────────────────────────────────────────────────────────────────╯\n";
@@ -483,7 +482,7 @@ int main()
             cout << "\n";
             cout << PRIMARY << "                                     ╭────────────────────────────────────────────────────────────────╮\n";
             cout << PRIMARY << "                                     │                                                                │\n";
-            cout << PRIMARY << "                                     │  " << ERROR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                            │\n";
+            cout << PRIMARY << "                                     │  " << ERROR_COLOR << BOLD << "Invalid option!" << RESET << PRIMARY << "                                            │\n";
             cout << PRIMARY << "                                     │  " << MUTED << DIM << "Please try again" << RESET << PRIMARY << "                                           │\n";
             cout << PRIMARY << "                                     │                                                                │\n";
             cout << PRIMARY << "                                     ╰────────────────────────────────────────────────────────────────╯\n";
