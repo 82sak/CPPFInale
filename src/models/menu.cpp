@@ -22,7 +22,6 @@ using namespace std;
 #define PURPLE "\033[35m"
 #define GRAY "\033[90m"
 
-// Additional color definitions for consistency
 #define PRIMARY CYAN
 #define ACCENT YELLOW
 #define TEXT RESET
@@ -323,12 +322,12 @@ void displayCart()
           cout << "                                      " << YELLOW << BOLD
                << "╔════════════════════════════════════════════════════════════════╗\n";
           
-          // Item name line - LEFT aligned, fixed width
+
           cout << "                                      " << YELLOW << BOLD << "║ " << CYAN;
           cout << left << setw(62) << orderName[i];
           cout << YELLOW << " ║\n" << RESET;
 
-          // Price calculation line - RIGHT aligned for numbers
+
           stringstream priceLine;
           priceLine << "$ $" << formatPrice(orderPrice[i]) << " × " << orderAmount[i] 
                     << " = $" << formatPrice(orderPrice[i] * orderAmount[i]);
@@ -351,21 +350,20 @@ void displayCart()
           cout << "                                      " << CYAN << BOLD
                << "╔════════════════════════════════════════════════════════════════╗\n";
 
-          // Sub-Total line - RIGHT aligned
+
           stringstream subTotalLine;
           subTotalLine << "Sub-Total: $" << formatPrice(total);
           cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD;
           cout << left << setw(62) << subTotalLine.str();
           cout << CYAN << " ║\n" << RESET;
 
-          // Tax line - RIGHT aligned
+
           stringstream taxLine;
           taxLine << "Tax: $" << formatPrice(totalTax);
           cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD;
           cout << left << setw(62) << taxLine.str();
           cout << CYAN << " ║\n" << RESET;
 
-          // Total line - RIGHT aligned
           stringstream totalLine;
           totalLine << "Total: $" << formatPrice(totalTax + total);
           cout << "                                      " << CYAN << BOLD << "║ " << YELLOW << BOLD;

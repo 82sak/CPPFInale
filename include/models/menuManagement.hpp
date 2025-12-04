@@ -1,5 +1,4 @@
 #pragma once
-#define _HAS_STD_BYTE 0
 void addNewProduct();
 void updateProduct();
 void deleteProduct();

@@ -248,21 +248,21 @@ string maskingPassword(){
     char ch;
     
     while (true) {
-        ch = _getch();  // Read character without displaying it
+        ch = _getch();
         
-        if (ch == 13) {  // Enter key (ASCII 13)
+        if (ch == 13) {
             cout << endl;
             break;
         }
-        else if (ch == 8) {  // Backspace key (ASCII 8)
+        else if (ch == 8) { 
             if (!password.empty()) {
-                password.pop_back();  // Remove last character
-                cout << "\b \b";  // Move back, print space, move back again
+                password.pop_back(); 
+                cout << "\b \b";  //
             }
         }
         else {
-            password += ch;  // Add character to password
-            cout << '*';     // Display asterisk
+            password += ch;  
+            cout << '*';     
         }
     }
     

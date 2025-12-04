@@ -4,12 +4,9 @@
 #include <iostream>
 #include <vector>
 #include <conio.h>
-// #include <tabulate/table.hpp>
 
 using namespace std;
-// using namespace tabulate;
 
-// Modern color scheme
 #define RESET "\033[0m"
 #define PRIMARY "\033[38;5;147m"   // Soft purple
 #define SECONDARY "\033[38;5;189m" // Light lavender
@@ -185,15 +182,6 @@ void deleteStaffAccount()
     cin.get();
 }
 
-// void showAllStaff(const vector<User> &users){
-//     Table table;
-//     table.add_row({"Staff's Account Name","fullName", "Gender", "Age"});
-//     for(const auto &user : users){
-//         table.add_row({user.getUserName(), user.getUserFullName(), user.getUserGender(), to_string(user.getUserAge())});
-//     }
-//     table[0].format().font_style({FontStyle::bold});
-//     cout << table << endl;
-// };
 
 void showAllStaff()
 {
@@ -287,7 +275,6 @@ bool staffAuth()
         cout << "     " << ACCENT << "Enter Password: " << RESET;
         userPass = maskingPassword();
 
-        // Check if credentials match any staff
         bool found = false;
         for (const auto &user : users)
         {
@@ -300,11 +287,11 @@ bool staffAuth()
                      << RESET;
                 cout << "\n     " << MUTED << DIM << "Press Enter to continue..." << RESET;
                 cin.get();
-                return true; // Login successful
+                return true; 
             }
         }
 
-        // If not found
+
         if (!found)
         {
             attempts--;
@@ -326,5 +313,5 @@ bool staffAuth()
         }
     }
 
-    return false; // Login failed after 3 attempts
+    return false; 
 }

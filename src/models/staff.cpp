@@ -8,7 +8,6 @@
 
 using namespace std;
 
-// Modern color scheme
 #define RESET "\033[0m"
 #define PRIMARY "\033[38;5;147m"   // Soft purple
 #define SECONDARY "\033[38;5;189m" // Light lavender

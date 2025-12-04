@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "ui/homepage.hpp"
 #include <iostream>
+#include <string>
 #include <chrono>
 #include <thread>
 
@@ -71,11 +72,10 @@ void loadingScreen()
      {
           cout << "\n\t\t" << YELLOW << BOLD << stage << " " << RESET;
 
-          // Print 3 animated dots
           for (int i = 0; i < 3; i++)
           {
                cout << "." << flush;
-               Sleep(150); // 300ms delay per dot
+               Sleep(150); 
           }
 
           cout << " ✔️" << RESET;
